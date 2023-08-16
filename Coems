@@ -374,4 +374,50 @@ function checkSleeping(Model)
             return false
 end
 
+local hbExpander = {
+HeadExtends = true,
+XSize = 10,
+YSize = 10,
+ZSize = 10,
+HitboxTransparency = 0.5,
+}
 
+local HedsOn = Instance.new("Part")
+local HBXColor = Color3.fromRGB(1,1,1)
+local HBXMaterial = Enum.Material.ForceField
+HedsOn.Name = "HedsOn"
+HedsOn.Anchored = false
+HedsOn.CanCollide = false
+HedsOn.Transparency = hbExpander.HitboxTransparency
+HedsOn.Color = HBXColor
+HedsOn.Material = HBXMaterial
+HedsOn.Size = Vector3.new(10, 10, 10)
+HedsOn.Parent = game.ReplicatedStorage
+
+task.spawn(function()
+while task.wait() do
+if hbExpander.HeadExtends then
+	for _, i in ipairs(game:GetService("Workspace"):GetChildren()) do
+		if i:FindFirstChild("HumanoidRootPart") and not i:FindFirstChild("HedsOn") then
+			local BigHeadsPart = Instance.new("Part");BigHeadsPart.Name = "Head";BigHeadsPart.Anchored = false;BigHeadsPart.CanCollide = false;BigHeadsPart.Transparency = hbExpander.HitboxTransparency;BigHeadsPart.Size = Vector3.new(hbExpander.XSize, hbExpander.YSize, hbExpander.ZSize);BigHeadsPart.Material=HBXMaterial;BigHeadsPart.Color = HBXColor
+			local DeletePart = Instance.new("Weld");DeletePart.Parent = BigHeadsPart;DeletePart.Name = "FAKEHEAD"
+			local HeadsParts = BigHeadsPart:Clone();HeadsParts.Parent = i;HeadsParts.Orientation = i.HumanoidRootPart.Orientation
+			local clonedHedsOn = HedsOn:Clone();clonedHedsOn.Parent = i
+			local Headswelding = Instance.new("Weld");Headswelding.Parent = HeadsParts;Headswelding.Part0 = i.HumanoidRootPart;Headswelding.Part1 = HeadsParts
+			HeadsParts.Position = Vector3.new(i.HumanoidRootPart.Position.X, i.HumanoidRootPart.Position.Y - 0.6, i.HumanoidRootPart.Position.Z)
+		end
+	end
+else
+	for _, i in ipairs(game:GetService("Workspace"):GetChildren()) do
+		if i:FindFirstChild("HumanoidRootPart") and i:FindFirstChild("HedsOn") then
+			i.HedsOn:Remove()
+			for _, a in ipairs(i:GetChildren()) do
+				if a.Name == "Head" and a:FindFirstChild("FAKEHEAD") and (not a:FindFirstChild("Nametag") or not a:FindFirstChild("Face")) then
+					a:Remove()
+				end
+			end
+		end
+	end
+end
+end
+end)
