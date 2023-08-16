@@ -210,3 +210,168 @@ task.spawn(function()
         Circle.Color = rainbowColor;Line.Color = rainbowColor;Txt.Color = rainbowColor
     end
 end)
+
+--------------------
+
+local camera = workspace.CurrentCamera
+local runservice = game:GetService("RunService")
+
+function esp(drop)
+    local dropesp = Drawing.new("Text")
+       dropesp.Visible = false
+        dropesp.Center = true
+        dropesp.Outline = true
+        dropesp.Font = 2
+        dropesp.Color = Color3.fromRGB(255, 0, 0)
+        dropesp.Size = 15
+    
+    local armorNameLabel = Drawing.new("Text")
+    armorNameLabel.Visible = false
+        armorNameLabel.Center = true
+        armorNameLabel.Outline = true
+        armorNameLabel.Font = 2
+        armorNameLabel.Color = Color3.fromRGB(255, 255, 255)
+        armorNameLabel.Size = 13
+    
+    local lineesp = Drawing.new("Line")
+    lineesp.Visible = false
+        lineesp.From = Vector2.new(0, 0)
+        lineesp.To = Vector2.new(0, 0)
+        lineesp.Color = Color3.fromRGB(255, 0, 0)
+        lineesp.Thickness = 1
+    
+    local distanceesp = Drawing.new("Text")
+     distanceesp.Visible = false
+        distanceesp.Center = true
+        distanceesp.Outline = true
+        distanceesp.Font = 2
+        distanceesp.Color = Color3.fromRGB(255, 0, 0)
+        distanceesp.Size = 15
+    
+    local sleepingLabel = Drawing.new("Text")
+     sleepingLabel.Visible = false
+        sleepingLabel.Center = true
+        sleepingLabel.Outline = true
+        sleepingLabel.Font = 2
+        sleepingLabel.Color = Color3.fromRGB(255, 0, 0)
+        sleepingLabel.Size = 13
+    
+    local hue = 0
+    
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if drop and workspace:FindFirstChild(drop.Name) and drop:FindFirstChild("HumanoidRootPart") then
+            local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+    
+            if drop_onscreen then
+                hue = (hue + 1) % 360
+    
+                local color = Color3.fromHSV(hue / 360, 1, 1)
+                dropesp.Color = color
+                lineesp.Color = color
+                distanceesp.Color = color
+    
+                dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
+                local armorFolder = drop.Armor and drop.Armor:FindFirstChildOfClass("Folder")
+                if armorFolder then
+                         local armorName = armorFolder.Name
+                        if armorName == "WoodHelmet" or armorName == "WoodChestplate" or armorName == "WoodLeggings" then
+                            dropesp.Text = "Player"
+                            armorNameLabel.Position = dropesp.Position - Vector2.new(0, dropesp.TextBounds.Y + 5)
+                            armorNameLabel.Text = "has WoodArmor"
+                            armorNameLabel.Visible = true
+                        elseif armorName == "RiotHelmet" or armorName == "RiotChestplate" or armorName == "RiotLeggings" then
+                            dropesp.Text = "Player"
+                            armorNameLabel.Position = dropesp.Position - Vector2.new(0, dropesp.TextBounds.Y + 5)
+                            armorNameLabel.Text = "has RiotArmor"
+                            armorNameLabel.Visible = true
+                        elseif armorName == "SteelHelmet" or armorName == "SteelChestplate" or armorName == "SteelLeggings" then
+                            dropesp.Text = "Player"
+                            armorNameLabel.Position = dropesp.Position - Vector2.new(0, dropesp.TextBounds.Y + 5)
+                            armorNameLabel.Text = "has SteelArmor"
+                            armorNameLabel.Visible = true
+                            elseif armorName == "IronHelmet" or armorName == "IronChestplate" or armorName == "IronLeggings" then
+                            dropesp.Text = "Player"
+                            armorNameLabel.Position = dropesp.Position - Vector2.new(0, dropesp.TextBounds.Y + 5)
+                            armorNameLabel.Text = "has IronArmor"
+                            armorNameLabel.Visible = true
+                            else
+                            dropesp.Text = "Player"
+                            armorNameLabel.Visible = false
+                            end
+                else
+                    dropesp.Text = "Player"
+                    armorNameLabel.Visible = false
+                end
+                
+                dropesp.Visible = true
+                
+                local topCenter = Vector2.new(500, 0) -- Calculate the top center point of the screen
+                lineesp.From = topCenter -- Set the starting point of the line to the top center
+                lineesp.To = dropesp.Position + Vector2.new(0, dropesp.TextBounds.Y / 2) -- Set the ending point of the line
+                lineesp.Visible = true
+    
+                local playerPos = camera.CFrame.Position
+                local dropPos = drop.HumanoidRootPart.Position
+                local distance = (playerPos - dropPos).Magnitude
+                distanceesp.Position = dropesp.Position + Vector2.new(0, dropesp.TextBounds.Y + 5)
+                distanceesp.Text = string.format("%.1f studs", distance)
+                distanceesp.Visible = true
+    
+                -- Check if the player is sleeping
+                local isSleeping = checkSleeping(drop)
+                if isSleeping then
+                    sleepingLabel.Position = dropesp.Position + Vector2.new(0, dropesp.TextBounds.Y + 20)
+                    sleepingLabel.Text = "is Sleeping"
+                    sleepingLabel.Visible = true
+                else
+                    sleepingLabel.Visible = false
+                end
+            else
+                dropesp.Visible = false
+                lineesp.Visible = false
+                distanceesp.Visible = false
+                armorNameLabel.Visible = false
+                sleepingLabel.Visible = false
+            end
+        else
+            dropesp.Visible = false
+            lineesp.Visible = false
+            distanceesp.Visible = false
+            armorNameLabel.Visible = false
+            sleepingLabel.Visible = false
+            dropesp:Remove()
+            lineesp:Remove()
+            distanceesp:Remove()
+            armorNameLabel:Remove()
+            sleepingLabel:Remove()
+            renderstepped:Disconnect()
+        end
+    end)
+end
+
+for i, drop in ipairs(workspace:GetChildren()) do
+    if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
+        esp(drop)
+    end
+end
+
+workspace.ChildAdded:Connect(function(drop)
+    if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
+        esp(drop)
+    end
+end)
+
+-- Function to check if the player model is sleeping
+function checkSleeping(Model)
+     if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+            for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://12501841745" then
+            return true
+            end
+            end
+            end
+            return false
+end
+
+
