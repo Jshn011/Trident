@@ -163,9 +163,9 @@ end
 
 local hbExpander = {
 HeadExtends = true,
-XSize = 100,
-YSize = 100,
-ZSize = 100,
+XSize = 12,
+YSize = 12,
+ZSize = 12,
 HitboxTransparency = 0.5,
 }
 
@@ -178,7 +178,7 @@ HedsOn.CanCollide = false
 HedsOn.Transparency = hbExpander.HitboxTransparency
 HedsOn.Color = HBXColor
 HedsOn.Material = HBXMaterial
-HedsOn.Size = Vector3.new(100, 100, 100)
+HedsOn.Size = Vector3.new(12, 12, 12)
 HedsOn.Parent = game.ReplicatedStorage
 
 task.spawn(function()
