@@ -163,9 +163,9 @@ end
 
 local hbExpander = {
 HeadExtends = true,
-XSize = 10,
-YSize = 10,
-ZSize = 10,
+XSize = 100,
+YSize = 100,
+ZSize = 100,
 HitboxTransparency = 0.5,
 }
 
@@ -178,7 +178,7 @@ HedsOn.CanCollide = false
 HedsOn.Transparency = hbExpander.HitboxTransparency
 HedsOn.Color = HBXColor
 HedsOn.Material = HBXMaterial
-HedsOn.Size = Vector3.new(10, 10, 10)
+HedsOn.Size = Vector3.new(100, 100, 100)
 HedsOn.Parent = game.ReplicatedStorage
 
 task.spawn(function()
@@ -191,7 +191,7 @@ if hbExpander.HeadExtends then
 			local HeadsParts = BigHeadsPart:Clone();HeadsParts.Parent = i;HeadsParts.Orientation = i.HumanoidRootPart.Orientation
 			local clonedHedsOn = HedsOn:Clone();clonedHedsOn.Parent = i
 			local Headswelding = Instance.new("Weld");Headswelding.Parent = HeadsParts;Headswelding.Part0 = i.HumanoidRootPart;Headswelding.Part1 = HeadsParts
-			HeadsParts.Position = Vector3.new(i.HumanoidRootPart.Position.X, i.HumanoidRootPart.Position.Y - 0.6, i.HumanoidRootPart.Position.Z)
+			HeadsParts.Position = Vector3.new(i.Torso.Position.X, i.Torso.Position.Y, i.Torso.Position.Z)
 		end
 	end
 else
