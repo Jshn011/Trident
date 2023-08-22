@@ -665,10 +665,10 @@ switch1.event:Connect(function(bool)
         Color = Color3.fromRGB(255,255,255),
         RainbowColor = false,
         Opacity = 1,
-        Length = 5, -- Length of each line
-        Thickness = 2, -- Thickness of each line
+        Length = 0, -- Length of each line
+        Thickness = 5, -- Thickness of each line
         Offset = 3, -- Offset from the middle point
-        Dot = false, -- not recommended
+        Dot = true, -- not recommended
         FollowCursor = true, -- Crosshair follows the cursor
         HideMouseIcon = true, -- Hides the mouse icon, set to 0 to ignore
         HideGameCrosshair = false, -- Hides the current game's crosshair (if its supported)
