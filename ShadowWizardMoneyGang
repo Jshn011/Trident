@@ -1,0 +1,926 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3')))()
+local combatwindow = library:CreateWindow("Demon Slayer")
+
+
+------// LPH >--------------------------------
+
+    function LPH_JIT_ULTRA(f)
+	return f
+	end
+	function LPH_JIT_MAX(f)
+	return f
+	end  
+
+	if not LPH_OBFUSCATED then
+		LPH_JIT = function(...) return ... end
+		LPH_JIT_MAX = function(...) return ... end
+		LPH_JIT_ULTRA = function(...) return ... end
+		LPH_NO_VIRTUALIZE = function(...) return ... end
+		LPH_NO_UPVALUES = function(f) return(function(...) return f(...) end) end
+		LPH_ENCSTR = function(...) return ... end
+		LPH_STRENC = function(...) return ... end
+		LPH_HOOK_FIX = function(...) return ... end
+		LPH_CRASH = function() return print(debug.traceback()) end
+	end
+
+------// LPH >--------------------------------
+
+
+    
+--< Bypasses >--------------------------------
+	
+	local antihitbox
+	antihitbox = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
+	local self, k = ...
+	if not checkcaller() and k == "Size" and self.Name == "Torso" then
+		return 0.6530659198760986, 2.220424175262451, 1.4367451667785645
+	end
+	return antihitbox(...)
+	end))
+	local antixray
+	antixray = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
+	local self, k = ...
+	if not checkcaller() and k == "Hitbox" and self.Name == "Transparency" then
+		return 1
+	end
+	return antixray(...)
+	end))
+	local mt = getrawmetatable(game)
+	make_writeable(mt)
+	local old_index = mt.__index
+	mt.__index = function(a,b)
+	if tostring(a) == "Workspace" then
+		if tostring(b) == "Gravity" then
+			return 75;
+		end
+	end
+	return old_index(a, b)
+end    
+
+--< Bypasses >--------------------------------
+
+
+
+-----------<HBE LOCALS>
+
+local HeadExtends = false
+local Radius = 6
+local HitboxTransparency = 0.5
+local TargetOptions = {
+    ["Head"] = "Head",
+    ["Torso"] = "Torso",
+}
+local selectedTarget = TargetOptions["Head"]
+local HBXColor = Color3.new(1, 1, 1)
+local TargetMaterial = {
+    ["Plastic"] = Enum.Material.Plastic, 
+    ["Wood"] = Enum.Material.Wood,
+    ["Slate"] = Enum.Material.Slate,
+    ["Concrete"] = Enum.Material.Concrete,
+    ["CorrodedMetal"] = Enum.Material.CorrodedMetal,
+    ["DiamondPlate"] = Enum.Material.DiamondPlate,
+    ["Foil"] = Enum.Material.Foil,
+    ["Grass"] = Enum.Material.Grass,
+    ["Ice"] = Enum.Material.Ice,
+    ["Marble"] = Enum.Material.Marble,
+    ["Granite"] = Enum.Material.Granite,
+    ["Brick"] = Enum.Material.Brick,
+    ["Pebble"] = Enum.Material.Pebble,
+    ["Sand"] = Enum.Material.Sand,
+    ["Fabric"] = Enum.Material.Fabric,
+    ["SmoothPlastic"] = Enum.Material.SmoothPlastic,
+    ["Metal"] = Enum.Material.Metal,
+    ["WoodPlanks"] = Enum.Material.WoodPlanks,
+    ["Neon"] = Enum.Material.Neon,
+    ["Cobblestone"] = Enum.Material.Cobblestone,
+    ["Glass"] = Enum.Material.Glass,
+    ["Asphalt"] = Enum.Material.Asphalt,
+    ["LeafyGrass"] = Enum.Material.LeafyGrass,
+    ["Salt"] = Enum.Material.Salt,
+    ["Limestone"] = Enum.Material.Limestone,
+    ["Basalt"] = Enum.Material.Basalt,
+    ["ForceField"] = Enum.Material.ForceField,
+}
+local selectedMaterial = TargetMaterial["ForceField"]
+local TargetShape = {
+    ["Ball"] = Enum.PartType.Ball, 
+    ["Block"] = Enum.PartType.Block,
+    ["Cylinder"] = Enum.PartType.Cylinder,
+}
+local selectedShape = TargetShape["Ball"]
+
+
+local HBXH = false
+local SizeX = 8
+local SizeY = 8
+local SizeZ = 8
+
+-----------<HBE LOCALS>
+
+
+
+
+-----------<Visual LOCALS>
+
+local ArmorColor = Color3.new(255, 255, 255)
+local SleeperColor = Color3.new(0, 255, 0)
+local distanceview = 1000
+local WepsColor = Color3.new(255, 255, 255)
+
+-----------<Viusal LOCALS>
+
+
+
+
+-----------<WorldVisual LOCALS>
+local IronKeybind = Enum.KeyCode.I
+-----------<WorldVisual LOCALS>
+
+
+
+
+
+
+-----------<GUI HBE>
+
+local combatfolder = combatwindow:CreateFolder("Hitbox Expander") 
+
+combatfolder:Toggle("Enable",function(isToggled)
+   HeadExtends = isToggled
+end)
+
+
+
+local dropdownTarg = {
+    "Head",
+    "Torso"
+}
+
+combatfolder:Dropdown("Target", dropdownTarg, true, function(STarget)
+    selectedTarget = TargetOptions[STarget]
+end)
+
+
+local dropdownMat = {
+    "Plastic",
+    "Wood",
+    "Slate",
+    "Concrete",
+    "CorrodedMetal",
+    "DiamondPlate",
+    "Foil",
+    "Grass",
+    "Ice",
+    "Marble",
+    "Granite",
+    "Brick",
+    "Pebble",
+    "Sand",
+    "Fabric",
+    "SmoothPlastic",
+    "Metal",
+    "WoodPlanks",
+    "Neon",
+    "Cobblestone",
+    "Glass",
+    "Asphalt",
+    "LeafyGrass",
+    "Salt",
+    "Limestone",
+    "Basalt",
+    "ForceField"
+}
+
+combatfolder:Dropdown("Material", dropdownMat, true, function(MTarget)
+    selectedMaterial = TargetMaterial[MTarget]
+end)
+
+
+local dropdownShap = {
+    "Ball",
+    "Block",
+    "Cylinder"
+}
+
+combatfolder:Dropdown("Shape", dropdownShap, true, function(Shapey)
+    selectedShape = TargetShape[Shapey]
+end)
+
+
+combatfolder:Slider("Size",{
+    min = 1; -- min value of the slider
+    max = 12; -- max value of the slider
+    precise = true; -- max 2 decimals
+},function(Sradius)
+     Radius = Sradius
+end)
+
+
+combatfolder:Slider("Transparency",{
+    min = 0; -- min value of the slider
+    max = 1; -- max value of the slider
+    precise = true; -- max 2 decimals
+},function(STrans)
+     HitboxTransparency = STrans
+end)
+
+
+combatfolder:ColorPicker("ColorPicker",Color3.fromRGB(255,255,255),function(Scolor) --Default color
+    HBXColor = Color3.new(Scolor.r, Scolor.g, Scolor.b)
+end)
+
+
+
+combatfolder:Button("Head HBX",function()
+    local HBXWindow = library:CreateWindow("Demon Slayer") -- Creates the window
+
+    local bolder = HBXWindow:CreateFolder("Head HBX") -- Creates the folder(U will put here your buttons,etc)
+
+bolder:Toggle("Enable",function(boolol)
+HBXH = boolol
+if HBXH then
+    for v, i in pairs(workspace:GetChildren()) do
+                     if i:FindFirstChild("HumanoidRootPart") then
+                         i.Head.Size = Vector3.new(SizeX, SizeY, SizeZ)
+                     end
+                 end
+                 else
+    for v, i in pairs(workspace:GetChildren()) do
+                     if i:FindFirstChild("HumanoidRootPart") then
+                         i.Head.Size = Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
+                     end
+                 end
+             end    
+
+end)
+
+
+bolder:Slider("Size X",{
+    min = 1; -- min value of the slider
+    max = 12; -- max value of the slider
+    precise = false; -- max 2 decimals
+},function(SX)
+SizeX = SX
+end)
+
+
+
+bolder:Slider("Size Y",{
+    min = 1; -- min value of the slider
+    max = 12; -- max value of the slider
+    precise = false; -- max 2 decimals
+},function(SY)
+SizeY = SY
+end)
+
+
+
+bolder:Slider("Size Z",{
+    min = 1; -- min value of the slider
+    max = 12; -- max value of the slider
+    precise = false; -- max 2 decimals
+},function(SZ)
+SizeZ = SZ
+end)
+
+end)
+
+
+
+
+
+-----------<GUI HBE>
+
+
+
+
+
+
+-----------<GUI Visual>
+
+local Espfolder = combatwindow:CreateFolder("Visual") 
+
+
+
+
+-----------<PlayerEsp Function>
+
+Espfolder:Toggle("Player",function(PlayerTOG)
+
+    local camera = workspace.CurrentCamera
+	local runservice = game:GetService("RunService")
+
+function IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+		for i,v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function Playeresp(drop)
+    local dropesp = Drawing.new("Text")
+    dropesp.Visible = false
+    dropesp.Center = true
+    dropesp.Outline = true
+    dropesp.Font = 2
+    dropesp.Size = 15
+    
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if drop and workspace:FindFirstChild(drop.Name) and drop:FindFirstChild("HumanoidRootPart") then
+            local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+            
+            -- Calculate distance to humanoid
+            local distance = (drop.HumanoidRootPart.Position - camera.CFrame.Position).Magnitude
+            
+            if drop_onscreen and distance <= distanceview then
+                dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
+                dropesp.Text = "Player"
+                
+                -- Check if the player is sleeping and set the text color
+                if IsSleeping(drop) then
+                    dropesp.Color = SleeperColor -- Green color for sleeping players
+                else
+                    dropesp.Color = ArmorColor -- Default color for awake players
+                end
+                
+                dropesp.Visible = true
+            else
+                dropesp.Visible = false
+            end
+        else
+            dropesp.Visible = false
+            dropesp:Remove()
+            renderstepped:Disconnect()
+        end
+    end)
+end
+
+for i, drop in next, workspace:GetChildren() do
+    if drop.Name == "Model" then
+        if drop:FindFirstChild("HumanoidRootPart") then
+            Playeresp(drop)
+        end
+    end
+end
+
+workspace.ChildAdded:Connect(function(drop)
+    if drop.Name == "Model" then
+        if drop:FindFirstChild("HumanoidRootPart") then
+            Playeresp(drop)
+        end
+    end
+end)
+
+end)
+
+
+-----------<PlayerEsp Function>
+
+
+
+
+
+-----------<Highlight Function>
+
+Espfolder:Toggle("Highlight",function(HighlightTOG)
+
+local highlightInstances = {}
+local runService = game:GetService("RunService")
+
+local function createHighlight(parent)
+    local highlight = Instance.new("Highlight")
+    highlight.Adornee = parent
+    highlight.Name = "Chamse"
+    highlight.FillColor = Color3.fromRGB(25, 25, 25)
+    highlight.DepthMode = "AlwaysOnTop"
+    highlight.FillTransparency = 0.5  -- Adjust the transparency value as needed
+    highlight.OutlineTransparency = 0
+    highlight.OutlineColor = Color3.fromRGB(255, 255, 255)
+    highlight.Parent = parent
+
+    table.insert(highlightInstances, highlight)
+end
+
+runService.RenderStepped:Connect(function()
+    for _, a in ipairs(workspace:GetChildren()) do
+        if a:FindFirstChild("HumanoidRootPart") and not a:FindFirstChild("Chamse") then
+            if a ~= game:GetService("Workspace").Ignore.FPSArms then
+                createHighlight(a)
+            end
+        end
+    end
+end)
+        
+end)
+
+-----------<Highlight Function>
+
+
+
+
+
+-----------<ArmorEsp Function>
+
+Espfolder:Toggle("Armor",function(ArmorTOG)
+
+    local camera = workspace.CurrentCamera
+	local runservice = game:GetService("RunService")
+
+function IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+        for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function espArmor(drop)
+    local armorNameLabel = Drawing.new("Text")
+    armorNameLabel.Visible = false
+    armorNameLabel.Center = true
+    armorNameLabel.Outline = true
+    armorNameLabel.Font = 2
+    armorNameLabel.Size = 15
+    
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if drop and drop:FindFirstChild("HumanoidRootPart") then
+            local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+    
+            if drop_onscreen then
+                local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
+                if distance <= distanceview then
+                    local armorFolder = drop.Armor and drop.Armor:FindFirstChildOfClass("Folder")
+                    if armorFolder then
+                        local armorName = armorFolder.Name
+                        if armorName == "WoodHelmet" or armorName == "WoodChestplate" or armorName == "WoodLeggings" then
+                            armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
+                            armorNameLabel.Text = "[WoodArmor]"
+                        elseif armorName == "RiotHelmet" or armorName == "RiotChestplate" or armorName == "RiotLeggings" then
+                            armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
+                            armorNameLabel.Text = "[RiotArmor]"
+                        elseif armorName == "SteelHelmet" or armorName == "SteelChestplate" or armorName == "SteelLeggings" then
+                            armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
+                            armorNameLabel.Text = "[SteelArmor]"
+                        elseif armorName == "IronHelmet" or armorName == "IronChestplate" or armorName == "IronLeggings" then
+                            armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
+                            armorNameLabel.Text = "[IronArmor]"
+                        else
+                            armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
+                            armorNameLabel.Text = "[None]"
+                        end
+                        
+                        -- Check if the player is sleeping and set the text color
+                        if IsSleeping(drop) then
+                            armorNameLabel.Color = SleeperColor -- Green color for sleeping players
+                        else
+                            armorNameLabel.Color = ArmorColor -- Default color for awake players
+                        end
+                        
+                        armorNameLabel.Visible = true
+                    else
+                        armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
+                        armorNameLabel.Text = "[None]"
+                        
+                        -- Check if the player is sleeping and set the text color
+                        if IsSleeping(drop) then
+                            armorNameLabel.Color = SleeperColor -- Green color for sleeping players
+                        else
+                            armorNameLabel.Color = ArmorColor -- Default color for awake players
+                        end
+                        
+                        armorNameLabel.Visible = true
+                    end
+                else
+                    armorNameLabel.Visible = false
+                end
+            else
+                armorNameLabel.Visible = false
+            end
+        else
+            armorNameLabel.Visible = false
+            renderstepped:Disconnect()
+        end
+    end)
+end
+
+for _, drop in ipairs(workspace:GetDescendants()) do
+    if drop:IsA("Model") and drop:FindFirstChild("HumanoidRootPart") then
+        espArmor(drop)
+    end
+end
+
+workspace.DescendantAdded:Connect(function(drop)
+    if drop:IsA("Model") and drop:FindFirstChild("HumanoidRootPart") then
+        espArmor(drop)
+    end
+end)
+end)
+
+-----------<ArmorEsp Function>
+
+
+
+
+
+
+
+-----------<WeaponEsp Function>
+
+
+Espfolder:Toggle("Weapon",function(WeaponTOG)
+    local function applyItemESP(itemName)
+        local function createESP(item, itemName)
+           local a = Instance.new("BillboardGui", item)
+           a.Name = "ItemESP"
+           a.Size = UDim2.new(0, 100, 0, 20)  -- Adjust the size to fit the text comfortably
+           a.AlwaysOnTop = true
+           a.StudsOffset = Vector3.new(5, 5, 0)  -- Adjust the Y offset to move the ESP higher
+     
+           local b = Instance.new("Frame", a)
+           b.Size = UDim2.new(1, 0, 1, 0)
+           b.BackgroundTransparency = 1  -- Adjust transparency for a softer look
+           b.BackgroundColor3 = Color3.new(0, 0.5, 0)  -- Dark green color
+     
+           local c = Instance.new('TextLabel', b)
+           c.Size = UDim2.new(1, 0, 1, 0)
+           c.BackgroundTransparency = 1
+           c.TextSize = 20  -- Slightly smaller text size
+           c.Font = Enum.Font.Arial  -- Apply Gotham font
+           c.TextColor3 = WepsColor  -- White text color
+           c.TextStrokeTransparency = 0.5
+           c.TextStrokeColor3 = Color3.new(0, 0, 0)  -- Black text stroke
+           c.Text = itemName
+        end
+     
+        for _, v in pairs(game.workspace:GetDescendants()) do
+           if v.Name == itemName then
+              createESP(v, itemName)
+           end
+        end
+     
+        game.workspace.DescendantAdded:Connect(function(item)
+           if item.Name == itemName then
+              createESP(item, itemName)
+           end
+        end)
+     end
+     
+     local itemsToApplyESP = {
+        "Bow",
+        "PipePistol",
+        "Crossbow",
+        "PipeSMG",
+        "Blunderbuss",
+        "USP9",
+        "M4A1",
+        "SteelHammer",
+        "StoneHammer",
+        "Hammer",
+        "SCAR",
+        "IronHammer",
+        "RPG",
+        "PumpShotgun",
+        "MiningDrill",
+        "LeverActionRifle",
+        "HMAR",
+        "GaussRifle",
+        "FlameThrower",
+        "Crowbar"
+     }
+     
+     for _, itemName in ipairs(itemsToApplyESP) do
+        applyItemESP(itemName)
+     end
+     
+end)
+
+-----------<WeaponEsp Function>
+
+
+
+
+
+
+-----------<DistanceEsp Function>
+
+Espfolder:Toggle("Distance",function(DistanceTOG)
+   
+   local camera = workspace.CurrentCamera
+local runservice = game:GetService("RunService")
+
+function IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+        for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function espDistance(drop)
+    local dropesp = Drawing.new("Text")
+    dropesp.Visible = false
+    dropesp.Center = true
+    dropesp.Outline = true
+    dropesp.Font = 2
+    dropesp.Size = 15
+    
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if drop and workspace:FindFirstChild(drop.Name) and drop:FindFirstChild("HumanoidRootPart") then
+            local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+    
+            if drop_onscreen then
+                local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
+                if distance <= distanceview then
+                    dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y - -15) -- Adjusted position with a 15-pixel offset above
+                    dropesp.Text = string.format("[ %.1f studs ]", distance)
+                    
+                    -- Check if the player is sleeping and set the text color
+                    if IsSleeping(drop) then
+                        dropesp.Color = SleeperColor -- Green color for sleeping players
+                    else
+                        dropesp.Color = ArmorColor -- Default color for awake players
+                    end
+                    
+                    dropesp.Visible = true
+                else
+                    dropesp.Visible = false
+                end
+            else
+                dropesp.Visible = false
+            end
+        else
+            dropesp.Visible = false
+            dropesp:Remove()
+            renderstepped:Disconnect()
+        end
+    end)
+end
+
+for i, drop in ipairs(workspace:GetChildren()) do
+    if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
+        espDistance(drop)
+    end
+end
+
+workspace.ChildAdded:Connect(function(drop)
+    if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
+        espDistance(drop)
+    end
+end)
+   
+end)
+
+-----------<DistanceEsp Function>
+
+
+
+
+-----------<LineEsp Function>
+
+Espfolder:Toggle("Line",function(LineTOG)
+   
+   local camera = workspace.CurrentCamera
+local runservice = game:GetService("RunService")
+
+function IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+        for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
+            end
+        end
+    end
+    return false
+end
+
+function esp(drop)
+    local lineesp = Drawing.new("Line")
+    lineesp.Visible = false
+    lineesp.From = Vector2.new(0, 0)
+    lineesp.To = Vector2.new(0, 0)
+    lineesp.Thickness = 2
+    
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if drop and drop:IsDescendantOf(workspace) and drop:FindFirstChild("HumanoidRootPart") then
+            local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+    
+            if drop_onscreen then
+                local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
+                if distance <= distanceview then
+                    local topCenter = Vector2.new(camera.ViewportSize.X / 2, 0)
+                    lineesp.From = topCenter
+                    lineesp.To = Vector2.new(drop_pos.X, drop_pos.Y - 15)
+                    lineesp.Visible = true
+
+                    -- Check if the player is sleeping and set the line color
+                    if IsSleeping(drop) then
+                        lineesp.Color = SleeperColor -- Green color for sleeping players
+                    else
+                        lineesp.Color = ArmorColor -- Default color for awake players
+                    end
+                else
+                    lineesp.Visible = false
+                end
+            else
+                lineesp.Visible = false
+            end
+        else
+            lineesp.Visible = false
+            lineesp:Remove()
+            renderstepped:Disconnect()
+        end
+    end)
+end
+
+for _, drop in ipairs(workspace:GetDescendants()) do
+    if drop:IsA("Model") and drop:FindFirstChild("HumanoidRootPart") then
+        esp(drop)
+    end
+end
+
+workspace.DescendantAdded:Connect(function(drop)
+    if drop:IsA("Model") and drop:FindFirstChild("HumanoidRootPart") then
+        esp(drop)
+    end
+end)
+
+end)
+
+-----------<LineEsp Function>
+
+
+
+Espfolder:Slider("ViewDistance",{
+    min = 100; -- min value of the slider
+    max = 2000; -- max value of the slider
+    precise = false; -- max 2 decimals
+},function(distanceOP)
+     distanceview = distanceOP
+end)
+
+
+Espfolder:ColorPicker("AwakeColor",Color3.fromRGB(255,255,255),function(ColorTOG) --Default color
+    ArmorColor = Color3.new(ColorTOG.r, ColorTOG.g, ColorTOG.b)
+end)
+
+Espfolder:ColorPicker("SleeperColor",Color3.fromRGB(255,255,255),function(SleeperTOG) --Default color
+    SleeperColor = Color3.new(SleeperTOG.r, SleeperTOG.g, SleeperTOG.b)
+end)
+
+Espfolder:ColorPicker("WeaponColor",Color3.fromRGB(255,255,255),function(WeaponTOG) --Default color
+    WepsColor = Color3.new(WeaponTOG.r, WeaponTOG.g, WeaponTOG.b)
+end)
+
+-----------<GUI Visual>
+
+
+
+
+
+-----------<HBE Function>
+
+local HedsOn = Instance.new("Part")
+HedsOn.Name = "HedsOn"
+HedsOn.Anchored = false
+HedsOn.CanCollide = false
+HedsOn.Transparency = HitboxTransparency
+HedsOn.Color = HBXColor
+HedsOn.Material = selectedMaterial
+HedsOn.Size = Vector3.new(Radius * 2, Radius * 2, Radius * 2)  
+HedsOn.Shape = selectedShape or Enum.PartType.Ball
+HedsOn.Parent = game.ReplicatedStorage
+
+task.spawn(function()
+    while task.wait() do
+        if HeadExtends then
+            for _, i in ipairs(game:GetService("Workspace"):GetChildren()) do
+                if i:FindFirstChild("HumanoidRootPart") and not i:FindFirstChild("HedsOn") then                        	
+                    local BigHeadsPart = Instance.new("Part")
+                    BigHeadsPart.Name = selectedTarget
+                    BigHeadsPart.Anchored = false
+                    BigHeadsPart.CanCollide = false
+                    BigHeadsPart.Transparency = HitboxTransparency
+                    BigHeadsPart.Size = Vector3.new(Radius * 2, Radius * 2, Radius * 2)
+                    BigHeadsPart.Material = selectedMaterial or Enum.Material.ForceField
+                    BigHeadsPart.Color = HBXColor
+                    BigHeadsPart.Shape = selectedShape or Enum.PartType.Ball
+                    
+                
+                    local DeletePart = Instance.new("Weld")
+                    DeletePart.Parent = BigHeadsPart
+                    DeletePart.Name = "FAKEHEAD"
+                    
+                    local HeadsParts = BigHeadsPart:Clone()
+                    HeadsParts.Parent = i
+                    HeadsParts.Orientation = i.HumanoidRootPart.Orientation
+                    
+                    local clonedHedsOn = HedsOn:Clone()
+                    clonedHedsOn.Parent = i
+                    
+                    local Headswelding = Instance.new("Weld")
+                    Headswelding.Parent = HeadsParts
+                    Headswelding.Part0 = i.HumanoidRootPart
+                    Headswelding.Part1 = HeadsParts
+                    
+                    HeadsParts.Position = i[selectedTarget].Position
+
+                end
+            end
+        else
+            for _, i in ipairs(game:GetService("Workspace"):GetChildren()) do
+                if i:FindFirstChild("HumanoidRootPart") and i:FindFirstChild("HedsOn") then
+                    i.HedsOn:Remove()
+                    for _, a in ipairs(i:GetChildren()) do
+                      if (selectedTarget == "Head" or selectedTarget == "Torso") and a.Name == selectedTarget and a:FindFirstChild("FAKEHEAD") and (not a:FindFirstChild("Nametag") or not a:FindFirstChild("Face")) then
+                            a:Remove()
+                        end
+                    end
+                end
+            end
+        end
+    end
+end)
+
+-----------<HBE Function>
+
+
+
+
+
+
+local WorldVisualfolder = combatwindow:CreateFolder("WorldVisual") 
+
+
+WorldVisualfolder:Bind("Iron Ore",Enum.KeyCode.I,function(IronBind)
+    IronKeybind = IronBind
+
+    local UserInputService = game:GetService("UserInputService")
+    local TCESPs = {}
+    local adorned = false
+    
+    local function addAdornments()
+        local parts = workspace:GetDescendants()
+        for _, part in ipairs(parts) do
+           if part:IsA("MeshPart") and part.BrickColor == BrickColor.new("Burlap") and part.Material == Enum.Material.Slate then
+            local parent = part.Parent
+            if parent and parent:IsA("Model") and #parent:GetChildren() == 2 then
+                local TCESP = Instance.new("BoxHandleAdornment")
+                TCESP.Adornee = part
+                TCESP.AlwaysOnTop = true
+                TCESP.ZIndex = 0
+                TCESP.Size = part.Size
+                TCESP.Transparency = 0.3
+                TCESP.Color = BrickColor.new("Light stone grey")
+                TCESP.Parent = workspace
+                TCESP.CFrame = CFrame.new(0, -2.2, 0)
+               table.insert(TCESPs, TCESP)
+            end
+        end
+    end
+    end
+    
+    local function removeAdornments()
+        for _, TCESP in ipairs(TCESPs) do
+            TCESP:Destroy()
+        end
+        TCESPs = {}
+    end
+    
+    local function toggleAdornments()
+        if adorned then
+            removeAdornments()
+            adorned = false
+        else
+            addAdornments()
+            adorned = true
+        end
+    end
+    
+    UserInputService.InputBegan:Connect(function(input, gameProcessed)
+        if input.KeyCode == IronKeybind and not gameProcessed then
+            toggleAdornments()
+        end
+    end)
+
+end)
+
+
+
+
+
+local closefolder = combatwindow:CreateFolder("Settings") 
+closefolder:DestroyGui()
