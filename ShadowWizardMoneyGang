@@ -238,19 +238,23 @@ combatfolder:Button("Head HBX",function()
 
 bolder:Toggle("Enable",function(boolol)
 HBXH = boolol
-if HBXH then
-    for v, i in pairs(workspace:GetChildren()) do
-                     if i:FindFirstChild("HumanoidRootPart") then
-                         i.Head.Size = Vector3.new(SizeX, SizeY, SizeZ)
-                     end
-                 end
-                 else
-    for v, i in pairs(workspace:GetChildren()) do
-                     if i:FindFirstChild("HumanoidRootPart") then
-                         i.Head.Size = Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
-                     end
-                 end
-             end    
+local function AdjustHeadSize(i)
+    if i:FindFirstChild("HumanoidRootPart") then
+        if HBXH then
+            i.Head.Size = Vector3.new(SizeX, SizeY, SizeZ)
+        else
+            i.Head.Size = Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
+        end
+    end
+end
+
+workspace.ChildAdded:Connect(function(child)
+    AdjustHeadSize(child)
+end)
+
+for _, existingChild in pairs(workspace:GetChildren()) do
+    AdjustHeadSize(existingChild)
+end    
 
 end)
 
