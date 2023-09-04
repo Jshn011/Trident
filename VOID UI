@@ -66,6 +66,31 @@ function library:AddConnection(connection, name, callback)
 end
 
 
+function library:Unload()
+    for _, c in next, self.connections do
+        c:Disconnect()
+    end
+    for _, i in next, self.instances do
+        if i.method then
+            pcall(function() i.object:Remove() end)
+        else
+            i.object:Destroy()
+        end
+    end
+    for _, o in next, self.options do
+        if o.type == "toggle" and o.SetState and type(o.SetState) == "function" then
+            local success, error_message = pcall(function()
+                coroutine.resume(coroutine.create(o.SetState), o)
+            end)
+            
+            if not success then
+                warn("Error in coroutine: " .. error_message)
+            end
+        end
+    end
+    library = nil
+    getgenv().library = nil
+end
 
 
 function library:LoadConfig(config)
