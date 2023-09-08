@@ -1395,7 +1395,7 @@ local EnableHBX = Tab1:AddToggle('Enable', {
     Text = 'Enable',
     Default = false, 
     Tooltip = 'Enable hitbox expander', 
-
+    
     Callback = function(HBEON)
         HeadExtends = HBEON 
     end
@@ -1634,6 +1634,169 @@ ChangedCallback = function(New)
     
 end
 })
+
+
+
+local TabBox9 = Tabs.Main:AddRightTabbox() 
+
+
+local PMPTab1 = TabBox9:AddTab('Player Custom')
+
+local function setArmProperties(property, value)
+    local armParts = {"LeftUpperArm", "LeftLowerArm", "LeftHand","RightUpperArm", "RightLowerArm", "RightHand"}
+    for _, partName in ipairs(armParts) do
+    game:GetService("Workspace").Ignore.FPSArms[partName][property] = value
+    end
+    end
+    
+    PMPTab1:AddToggle('ArmChams', { Text = 'Custom Arm', Default = false }):AddColorPicker('ArmChamsColor', { Default = Color3.fromRGB(80, 77, 56), Title = 'Color' }):OnChanged(function(Value)
+    if Value == true then
+    elseif Value == false then
+    setArmProperties("Color", Color3.fromRGB(80, 77, 56))
+    setArmProperties("Material", "SmoothPlastic")
+    end
+    end)
+    Options.ArmChamsColor:OnChanged(function(Value)
+    setArmProperties("Color", Value)
+    end)
+    
+    PMPTab1:AddDropdown('ArmChamsMaterial', {Values = { "SmoothPlastic", "ForceField", "Neon", "Plastic", "Metal", "Wood", "Slate", "Concrete", "Foil", "DiamondPlate", "CorrodedMetal", "Grass", "Ice", "Marble", "Granite", "Brick", "Pebble", "Sand", "Fabric", "WoodPlanks", "Cobblestone", "Glass", "Asphalt", "LeafyGrass", "Salt", "Limestone", "Basalt" },Default = 1,Multi = false,Text = 'Material'}):OnChanged(function(Value)
+    setArmProperties("Material", Value)
+    end)
+    
+    
+        local replicatedStorageLOL = game:GetService("ReplicatedStorage")
+        local handModelsLOL = replicatedStorageLOL:WaitForChild("HandModels")
+        local materialLOL = Enum.Material.ForceField
+        local colorLOL = Color3.new(1, 1, 1)
+    
+    
+    local CUSTOMBRUHWEAPON = PMPTab1:AddToggle('Enable', {
+        Text = 'Custom Weapon',
+        Default = false, 
+        Tooltip = '', 
+        
+        Callback = function(LOL)
+    
+          for _, part in pairs(handModelsLOL:GetDescendants()) do
+        if part:IsA("BasePart") then
+            part.Material = materialLOL
+            part.Color = colorLOL
+        end
+    end
+    
+        end
+    })
+    
+    CUSTOMBRUHWEAPON:AddColorPicker('ColorPicker', {
+        Default = Color3.new(1, 1, 1), 
+        Title = 'Hitbox Color', 
+        Transparency = 0, 
+    
+        Callback = function(WEAPONCOLRR)
+            colorLOL = Color3.new(WEAPONCOLRR.r, WEAPONCOLRR.g, WEAPONCOLRR.b)
+        end
+    })
+    
+    
+    PMPTab1:AddDropdown('MaterialDropdown', {
+        Values = { "ForceField", "Neon", "Plastic", "Metal", "Wood", "Slate", "Concrete", "Foil", "DiamondPlate", "CorrodedMetal", "Grass", "Ice", "Marble", "Granite", "Brick", "Pebble", "Sand", "Fabric", "SmoothPlastic", "WoodPlanks", "Cobblestone", "Glass", "Asphalt", "LeafyGrass", "Salt", "Limestone", "Basalt" },
+        Default = 1, 
+        Multi = false, 
+    
+        Text = 'Material',
+        Tooltip = '', 
+    
+        Callback = function(MATERIALWTFWEAPONS)
+            materialLOL = TargetMaterial[MATERIALWTFWEAPONS]
+        end
+    })
+    
+    
+    PMPTab1:AddDivider()
+    
+    
+    PMPTab1:AddLabel('Health Color'):AddColorPicker('Health_Color_Value', { Default = Color3.fromRGB(78,153,74)})
+    Options.Health_Color_Value:OnChanged(function(Health_Color_Value)
+    game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.Vitals.HealthFrame.Health.BackgroundColor3 = Health_Color_Value
+    end)
+    
+    
+    PMPTab1:AddLabel('Energy Color'):AddColorPicker('Energy_Color_Value', { Default = Color3.fromRGB(197,187,40)})
+    Options.Energy_Color_Value:OnChanged(function(Energy_Color_Value)
+    game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.Vitals.EnergyFrame.Energy.BackgroundColor3 = Energy_Color_Value
+    end)
+    
+    
+    PMPTab1:AddLabel('Inventory Color'):AddColorPicker('Inventory_Color', { Default = Color3.fromRGB(80,80,80)})
+    Options.Inventory_Color:OnChanged(function(Inventory_Color_Value)
+    local hotbar = game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.BottomCenter
+    for i = 26, 29 do
+    hotbar.Armor["ItemSlot" .. i].BackgroundColor3 = Inventory_Color_Value
+    end
+    for i = 6, 25 do
+    hotbar.Inventory["ItemSlot" .. i].BackgroundColor3 = Inventory_Color_Value
+    end 
+    for i = 1, 5 do
+    hotbar.Hotbar["ItemSlot" .. i].BackgroundColor3 = Inventory_Color_Value
+    end 
+    end)
+
+
+    PMPTab1:AddDivider()
+
+
+    local SoundService = game:GetService("SoundService")
+
+    SoundService.PlayerHitHeadshot.Volume = 0
+    SoundService.PlayerHitHeadshot.Pitch = 1
+    SoundService.PlayerHitHeadshot.EqualizerSoundEffect.HighGain = -1.5
+    local sounds = {["Defualt Headshot"] = "rbxassetid://9119561046",["Defualt Body"] = "rbxassetid://9114487369",Neverlose = "rbxassetid://8726881116",Gamesense = "rbxassetid://4817809188",One = "rbxassetid://7380502345",Bell = "rbxassetid://6534947240",Rust = "rbxassetid://1255040462",TF2 = "rbxassetid://2868331684",Slime = "rbxassetid://6916371803",["Among Us"] = "rbxassetid://5700183626",Minecraft = "rbxassetid://4018616850",["CS:GO"] = "rbxassetid://6937353691",Saber = "rbxassetid://8415678813",Baimware = "rbxassetid://3124331820",Osu = "rbxassetid://7149255551",["TF2 Critical"] = "rbxassetid://296102734",Bat = "rbxassetid://3333907347",["Call of Duty"] = "rbxassetid://5952120301",Bubble = "rbxassetid://6534947588",Pick = "rbxassetid://1347140027",Pop = "rbxassetid://198598793",Bruh = "rbxassetid://4275842574",Bamboo = "rbxassetid://3769434519",Crowbar = "rbxassetid://546410481",Weeb = "rbxassetid://6442965016",Beep = "rbxassetid://8177256015",Bambi = "rbxassetid://8437203821",Stone = "rbxassetid://3581383408",["Old Fatality"] = "rbxassetid://6607142036",Click = "rbxassetid://8053704437",Ding = "rbxassetid://7149516994",Snow = "rbxassetid://6455527632",Laser = "rbxassetid://7837461331",Mario = "rbxassetid://2815207981",Steve = "rbxassetid://4965083997"}
+    
+    
+    
+    
+    PMPTab1:AddToggle('Enabled_Toggle1', {Text = 'Headshot Hitsound', Default = false})
+    
+    PMPTab1:AddDropdown('HeadshotHit', {Values = { 'Defualt Headshot','Neverlose','Gamesense','One','Bell','Rust','TF2','Slime','Among Us','Minecraft','CS:GO','Saber','Baimware','Osu','TF2 Critical','Bat','Call of Duty','Bubble','Pick','Pop','Bruh','Bamboo','Crowbar','Weeb','Beep','Bambi','Stone','Old Fatality','Click','Ding','Snow','Laser','Mario','Steve','Snowdrake' },Default = 1, Multi = false, Text = 'Select Hitsound:'})
+    Options.HeadshotHit:OnChanged(function()
+    local soundId = sounds[Options.HeadshotHit.Value]
+    game:GetService("SoundService").PlayerHitHeadshot.SoundId = soundId
+    game:GetService("SoundService").PlayerHitHeadshot.Playing = true
+    end)
+    
+    PMPTab1:AddSlider('Volume_Slider', {Text = 'Volume', Default = 0, Min = 0, Max = 10, Rounding = 0, Compact = false,}):OnChanged(function(vol)
+    SoundService.PlayerHitHeadshot.Volume = vol
+    end)
+    
+    PMPTab1:AddSlider('Pitch_Slider', {Text = 'Pitch', Default = 1, Min = 0, Max = 2, Rounding = 2, Compact = false,}):OnChanged(function(pich)
+    SoundService.PlayerHitHeadshot.Pitch = pich
+    end)
+    
+    --
+    PMPTab1:AddToggle('Enabled_Toggle2', {Text = 'Bodyshot Hitsound', Default = false})
+    
+    PMPTab1:AddDropdown('Hit', {Values = { 'Defualt Body','Neverlose','Gamesense','One','Bell','Rust','TF2','Slime','Among Us','Minecraft','CS:GO','Saber','Baimware','Osu','TF2 Critical','Bat','Call of Duty','Bubble','Pick','Pop','Bruh','Bamboo','Crowbar','Weeb','Beep','Bambi','Stone','Old Fatality','Click','Ding','Snow','Laser','Mario','Steve','Snowdrake' },Default = 1, Multi = false, Text = 'Select Hitsound:'})
+    Options.Hit:OnChanged(function()
+    local soundId = sounds[Options.Hit.Value]
+    game:GetService("SoundService").PlayerHit2.SoundId = soundId
+    game:GetService("SoundService").PlayerHit2.Playing = true
+    end)
+    
+    PMPTab1:AddSlider('Volume_Slider', {Text = 'Volume', Default = 0, Min = 0, Max = 10, Rounding = 0, Compact = false,}):OnChanged(function(vole)
+    SoundService.PlayerHit2.Volume = vole
+    end)
+    
+    PMPTab1:AddSlider('Pitch_Slider', {Text = 'Pitch', Default = 1, Min = 0, Max = 2, Rounding = 2, Compact = false,}):OnChanged(function(piche)
+    SoundService.PlayerHit2.Pitch = piche
+    end)
+
+
+
+    local PMPTab2 = TabBox9:AddTab('Settings')
+
+
+
 
 
 
@@ -2686,6 +2849,14 @@ MTab1:AddToggle('NoClouds', {
 })
 
 
+local TabBox10 = Tabs.Main:AddRightTabbox() 
+
+
+local MC30Tab1 = TabBox10:AddTab('Local Misc')
+
+MC30Tab1:AddButton('Freecam Undectable fr fr', function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/RobloxSkriptr/RBLXSkriptr/main/Free%20Camera.lua",true))()
+    end)
 
 
 
