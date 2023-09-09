@@ -1,3 +1,5 @@
+-- Demontime (Linoria lib version) 
+
 -----------<WorldViusal LOCALS>
 
 local IronColor = Color3.new(1, 1, 1)
@@ -1319,6 +1321,8 @@ local HBXH = false
 local SizeX = 10
 local SizeY = 10
 local SizeZ = 10
+local TransHead = 0
+local ColorBRUH = Color3.fromRGB(80,77,56)
 
 -----------<HBE LOCALS>
 
@@ -1482,7 +1486,7 @@ Tab1:AddSlider('HitboxSlider', {
 
 local Tab2 = TabBox:AddTab('Head Expander')
 
-Tab2:AddToggle('Enable', {
+local ENABLEBRUH = Tab2:AddToggle('Enable', {
     Text = 'Enable',
     Default = false, 
     Tooltip = 'Enable head expander', 
@@ -1493,8 +1497,12 @@ Tab2:AddToggle('Enable', {
             if i:FindFirstChild("HumanoidRootPart") then
                 if HBXH then
                     i.Head.Size = Vector3.new(SizeX, SizeY, SizeZ)
+                    i.Head.Transparency = TransHead
+                    i.Head.Color = ColorBRUH
                 else
                     i.Head.Size = Vector3.new(1.672248125076294, 0.835624098777771, 0.835624098777771)
+                    i.Head.Transparency = 0
+                    i.Head.Color = Color3.fromRGB(80,77,56)
                 end
             end
         end
@@ -1509,13 +1517,38 @@ Tab2:AddToggle('Enable', {
     end
 })
 
+
+ENABLEBRUH:AddColorPicker('ColorPicker', {
+    Default = Color3.new(1, 1, 1), 
+    Title = 'Color', 
+    Transparency = 0, 
+
+    Callback = function(BRUHGYAT)
+        ColorBRUH = Color3.new(BRUHGYAT.r, BRUHGYAT.g, BRUHGYAT.b)
+    end
+})
+
+
+Tab2:AddSlider('TransHeadLOL', {
+    Text = 'Transparency',
+    Default = 0,
+    Min = 0,
+    Max = 1,
+    Rounding = 1,
+    Compact = false,
+
+    Callback = function(LOLGAY)
+        TransHead = LOLGAY
+    end
+})
+
 Tab2:AddSlider('HitboxSliderX', {
     Text = 'Size X',
     Default = 10,
     Min = 1,
     Max = 12,
     Rounding = 0,
-    Compact = false,
+    Compact = true,
 
     Callback = function(SX)
         SizeX = SX
@@ -1528,7 +1561,7 @@ Tab2:AddSlider('HitboxSliderY', {
     Min = 1,
     Max = 12,
     Rounding = 0,
-    Compact = false,
+    Compact = true,
 
     Callback = function(SY)
         SizeY = SY
@@ -1541,7 +1574,7 @@ Tab2:AddSlider('HitboxSliderZ', {
     Min = 1,
     Max = 12,
     Rounding = 0,
-    Compact = false,
+    Compact = true,
 
     Callback = function(SZ)
         SizeZ = SZ
@@ -1638,9 +1671,8 @@ end
 
 
 local TabBox9 = Tabs.Main:AddRightTabbox() 
-
-
 local PMPTab1 = TabBox9:AddTab('Player Custom')
+
 
 local function setArmProperties(property, value)
     local armParts = {"LeftUpperArm", "LeftLowerArm", "LeftHand","RightUpperArm", "RightLowerArm", "RightHand"}
@@ -1758,46 +1790,96 @@ local function setArmProperties(property, value)
     
     PMPTab1:AddToggle('Enabled_Toggle1', {Text = 'Headshot Hitsound', Default = false})
     
-    PMPTab1:AddDropdown('HeadshotHit', {Values = { 'Defualt Headshot','Neverlose','Gamesense','One','Bell','Rust','TF2','Slime','Among Us','Minecraft','CS:GO','Saber','Baimware','Osu','TF2 Critical','Bat','Call of Duty','Bubble','Pick','Pop','Bruh','Bamboo','Crowbar','Weeb','Beep','Bambi','Stone','Old Fatality','Click','Ding','Snow','Laser','Mario','Steve','Snowdrake' },Default = 1, Multi = false, Text = 'Select Hitsound:'})
+    PMPTab1:AddDropdown('HeadshotHit', {Values = { 'Defualt Headshot','Neverlose','Gamesense','One','Bell','Rust','TF2','Slime','Among Us','Minecraft','CS:GO','Saber','Baimware','Osu','TF2 Critical','Bat','Call of Duty','Bubble','Pick','Pop','Bruh','Bamboo','Crowbar','Weeb','Beep','Bambi','Stone','Old Fatality','Click','Ding','Snow','Laser','Mario','Steve','Snowdrake' },Default = 1, Multi = false, Text = 'Select'})
     Options.HeadshotHit:OnChanged(function()
     local soundId = sounds[Options.HeadshotHit.Value]
     game:GetService("SoundService").PlayerHitHeadshot.SoundId = soundId
     game:GetService("SoundService").PlayerHitHeadshot.Playing = true
     end)
     
-    PMPTab1:AddSlider('Volume_Slider', {Text = 'Volume', Default = 0, Min = 0, Max = 10, Rounding = 0, Compact = false,}):OnChanged(function(vol)
-    SoundService.PlayerHitHeadshot.Volume = vol
-    end)
-    
-    PMPTab1:AddSlider('Pitch_Slider', {Text = 'Pitch', Default = 1, Min = 0, Max = 2, Rounding = 2, Compact = false,}):OnChanged(function(pich)
-    SoundService.PlayerHitHeadshot.Pitch = pich
-    end)
-    
+
     --
     PMPTab1:AddToggle('Enabled_Toggle2', {Text = 'Bodyshot Hitsound', Default = false})
     
-    PMPTab1:AddDropdown('Hit', {Values = { 'Defualt Body','Neverlose','Gamesense','One','Bell','Rust','TF2','Slime','Among Us','Minecraft','CS:GO','Saber','Baimware','Osu','TF2 Critical','Bat','Call of Duty','Bubble','Pick','Pop','Bruh','Bamboo','Crowbar','Weeb','Beep','Bambi','Stone','Old Fatality','Click','Ding','Snow','Laser','Mario','Steve','Snowdrake' },Default = 1, Multi = false, Text = 'Select Hitsound:'})
+    PMPTab1:AddDropdown('Hit', {Values = { 'Defualt Body','Neverlose','Gamesense','One','Bell','Rust','TF2','Slime','Among Us','Minecraft','CS:GO','Saber','Baimware','Osu','TF2 Critical','Bat','Call of Duty','Bubble','Pick','Pop','Bruh','Bamboo','Crowbar','Weeb','Beep','Bambi','Stone','Old Fatality','Click','Ding','Snow','Laser','Mario','Steve','Snowdrake' },Default = 1, Multi = false, Text = 'Select'})
     Options.Hit:OnChanged(function()
     local soundId = sounds[Options.Hit.Value]
     game:GetService("SoundService").PlayerHit2.SoundId = soundId
     game:GetService("SoundService").PlayerHit2.Playing = true
     end)
     
-    PMPTab1:AddSlider('Volume_Slider', {Text = 'Volume', Default = 0, Min = 0, Max = 10, Rounding = 0, Compact = false,}):OnChanged(function(vole)
-    SoundService.PlayerHit2.Volume = vole
-    end)
-    
-    PMPTab1:AddSlider('Pitch_Slider', {Text = 'Pitch', Default = 1, Min = 0, Max = 2, Rounding = 2, Compact = false,}):OnChanged(function(piche)
-    SoundService.PlayerHit2.Pitch = piche
-    end)
 
 
 
     local PMPTab2 = TabBox9:AddTab('Settings')
 
+    PMPTab2:AddButton('Reset Colors', function()
+        game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.Vitals.HealthFrame.Health.BackgroundColor3 = Color3.fromRGB(78,153,74)
+        game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.Vitals.EnergyFrame.Energy.BackgroundColor3 = Color3.fromRGB(197,187,40)
+
+        local hotbar = game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.BottomCenter
+        for i = 26, 29 do
+        hotbar.Armor["ItemSlot" .. i].BackgroundColor3 = Color3.fromRGB(80,80,80)
+    end
+        for i = 6, 25 do
+        hotbar.Inventory["ItemSlot" .. i].BackgroundColor3 = Color3.fromRGB(80,80,80)
+    end 
+        for i = 1, 5 do
+        hotbar.Hotbar["ItemSlot" .. i].BackgroundColor3 = Color3.fromRGB(80,80,80)
+    end 
+    end)
+
+    PMPTab2:AddSlider('Volume_Slider', {Text = 'Headshot Volume', Default = 0, Min = 0, Max = 10, Rounding = 0, Compact = false,}):OnChanged(function(vol)
+        SoundService.PlayerHitHeadshot.Volume = vol
+        end)
+        
+    PMPTab2:AddSlider('Pitch_Slider', {Text = 'Headshot Pitch', Default = 1, Min = 0, Max = 2, Rounding = 2, Compact = false,}):OnChanged(function(pich)
+        SoundService.PlayerHitHeadshot.Pitch = pich
+        end)
+
+PMPTab2:AddDivider()
+
+    PMPTab2:AddSlider('Volume_Slider', {Text = 'Bodyshot Volume', Default = 0, Min = 0, Max = 10, Rounding = 0, Compact = false,}):OnChanged(function(vole)
+        SoundService.PlayerHit2.Volume = vole
+        end)
+            
+    PMPTab2:AddSlider('Pitch_Slider', {Text = 'Bodyshot Pitch', Default = 1, Min = 0, Max = 2, Rounding = 2, Compact = false,}):OnChanged(function(piche)
+        SoundService.PlayerHit2.Pitch = piche
+        end)
 
 
+local VisualsTabBox = Tabs.Main:AddLeftTabbox('Crosshair')
+local CrosshairXTab = VisualsTabBox:AddTab('Crosshair')
 
+local Camera = game:GetService("Workspace").Camera
+local Camera = game:GetService("Workspace").CurrentCamera
+local Cam = game:GetService("Workspace").Camera
+
+        --* Crosshair *--
+        
+        local CrossHairX = Drawing.new("Circle"), Drawing.new("Circle")
+        --
+        CrossHairX.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+        CrossHairX.Thickness = 1
+        CrossHairX.ZIndex = 3
+        
+        do
+        CrosshairXTab:AddToggle('zCrosshairX_Toggle', {Text = 'Enable', Default = false}):AddColorPicker("eCrosshairX_Color", {Default = Color3.fromRGB(208, 123, 255)}):OnChanged(function()
+        CrossHairX.Visible = Toggles.zCrosshairX_Toggle.Value
+        end)
+        
+        Options.eCrosshairX_Color:OnChanged(function()
+        CrossHairX.Color = Options.eCrosshairX_Color.Value
+        end)
+        
+        CrosshairXTab:AddToggle('Crosshair_Filled1', {Text = 'Filled', Default = false}):OnChanged(function()
+        CrossHairX.Filled = Toggles.Crosshair_Filled1.Value
+        end)
+        
+        CrosshairXTab:AddSlider('Crosshair_Radius', {Text = 'Size', Suffix = "", Default = 2, Min = 0, Max = 100, Rounding = 0, Compact = true}):OnChanged(function(CrosshairXRadius)
+        CrossHairX.Radius = CrosshairXRadius
+        end)
+        end
 
 
 local Tabs = {
@@ -2854,12 +2936,9 @@ local TabBox10 = Tabs.Main:AddRightTabbox()
 
 local MC30Tab1 = TabBox10:AddTab('Local Misc')
 
-MC30Tab1:AddButton('Freecam Undectable fr fr', function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/RobloxSkriptr/RBLXSkriptr/main/Free%20Camera.lua",true))()
-    end)
-
-
-
+MC30Tab1:AddButton('Freecam', function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/RobloxSkriptr/RBLXSkriptr/main/Free%20Camera.lua",true))()
+end)
 
 
 
