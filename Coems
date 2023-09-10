@@ -659,7 +659,7 @@ local function addAdornments()
     local parts = workspace:GetDescendants()
     local partsToRemove = {} -- Store parts to remove ESPs from
     for _, part in ipairs(parts) do
-        if part:IsA("Part") and part.BrickColor == BrickColor.new("Gun metallic") and part.Material == Enum.Material.Wood then
+        if part:IsA("Part") and part.BrickColor == BrickColor.new("Dark blue") and part.Material == Enum.Material.Neon then
             local parent = part.Parent
             if parent and parent:IsA("Model") and #parent:GetChildren() == 5 then
                 local distance = calculateDistance(part)
@@ -726,13 +726,13 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Gun metallic") and child.Material == Enum.Material.Wood then
+    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Dark blue") and child.Material == Enum.Material.Neon then
         addAdornments()
     end
 end)
 
 game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Gun metallic") and child.Material == Enum.Material.Wood then
+    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Dark blue") and child.Material == Enum.Material.Neon then
         for i, billboardGui in ipairs(TCESPs) do
             if billboardGui.Adornee == child then
                 billboardGui:Destroy()
@@ -971,7 +971,7 @@ local function addAdornments()
     local parts = workspace:GetDescendants()
     local partsToRemove = {} -- Store parts to remove ESPs from
     for _, part in ipairs(parts) do
-        if part:IsA("UnionOperation") and part.BrickColor == BrickColor.new("Silver flip/flop") and part.Material == Enum.Material.Metal and part.Size == Vector3.new(3.6499, 2.325, 2.65) then
+        if part:IsA("Part") and part.BrickColor == BrickColor.new("Linen") and part.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(3.25, 2, 2.25) then
             local parent = part.Parent
             if parent and parent:IsA("Model") and #parent:GetChildren() == 3 then
                 local distance = calculateDistance(part)
@@ -1038,13 +1038,13 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Silver flip/flop") and child.Material == Enum.Material.Metal and part.Size == Vector3.new(3.6499, 2.325, 2.65) then
+    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(3.25, 2, 2.25) then
         addAdornments()
     end
 end)
 
 game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Silver flip/flop") and child.Material == Enum.Material.Metal and part.Size == Vector3.new(3.6499, 2.325, 2.65) then
+    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(3.25, 2, 2.25) then
         for i, billboardGui in ipairs(TCESPs) do
             if billboardGui.Adornee == child then
                 billboardGui:Destroy()
@@ -1075,7 +1075,7 @@ local function addAdornments()
     local parts = workspace:GetDescendants()
     local partsToRemove = {} -- Store parts to remove ESPs from
     for _, part in ipairs(parts) do
-        if part:IsA("UnionOperation") and part.BrickColor == BrickColor.new("Silver flip/flop") and part.Material == Enum.Material.Metal and part.Size == Vector3.new(6.39996, 2.825, 3.15001) then
+        if part:IsA("Part") and part.BrickColor == BrickColor.new("Linen") and part.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(6, 2.5, 2.75) then
             local parent = part.Parent
             if parent and parent:IsA("Model") and #parent:GetChildren() == 3 then
                 local distance = calculateDistance(part)
@@ -1142,13 +1142,13 @@ game:GetService("RunService").Heartbeat:Connect(function()
 end)
 
 game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Silver flip/flop") and child.Material == Enum.Material.Metal and part.Size == Vector3.new(6.39996, 2.825, 3.15001) then
+    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(6, 2.5, 2.75) then
         addAdornments()
     end
 end)
 
 game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Silver flip/flop") and child.Material == Enum.Material.Metal and part.Size == Vector3.new(6.39996, 2.825, 3.15001) then
+    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(6, 2.5, 2.75) then
         for i, billboardGui in ipairs(TCESPs) do
             if billboardGui.Adornee == child then
                 billboardGui:Destroy()
@@ -1898,7 +1898,9 @@ local SleeperColor = Color3.new(0, 0, 1)
 local distanceview = 800
 local WepsColor = Color3.new(1, 1, 1)
 local wallcheck = false
+local TeamCheck = false
 local WallColor = Color3.new(1, 0, 0)
+local TeamCheColor = Color3.new(1, 1, 0)
 local PlayerText = " Player "
 
 -----------<Viusal LOCALS>
@@ -1914,7 +1916,6 @@ local PlayerLOC = VTab1:AddToggle('Player', {
     Callback = function(Value)
         local camera = workspace.CurrentCamera
         local runservice = game:GetService("RunService")
-        
         
         function IsSleeping(Model)
             if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
@@ -1934,36 +1935,48 @@ local PlayerLOC = VTab1:AddToggle('Player', {
             dropesp.Outline = true
             dropesp.Font = 2
             dropesp.Size = 15
-            
+        
             local renderstepped
             renderstepped = runservice.RenderStepped:Connect(function()
                 if drop and workspace:FindFirstChild(drop.Name) and drop:FindFirstChild("HumanoidRootPart") then
                     local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
-                    
+        
                     -- Calculate distance to humanoid
                     local distance = (drop.HumanoidRootPart.Position - camera.CFrame.Position).Magnitude
-                    
+        
                     if drop_onscreen and distance <= distanceview then
                         if wallcheck then
                             -- Raycast to check for obstructions
                             local raycastParams = RaycastParams.new()
                             raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-                            raycastParams.FilterDescendantsInstances = {drop}
+                            raycastParams.FilterDescendantsInstances = { drop }
                             local raycastResult = workspace:Raycast(
                                 camera.CFrame.Position,
                                 drop.HumanoidRootPart.Position - camera.CFrame.Position,
                                 raycastParams
                             )
-                            
+        
                             dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
                             dropesp.Text = PlayerText
-                            
+        
                             -- Check if the player is sleeping and set the text color
                             if IsSleeping(drop) then
                                 dropesp.Color = SleeperColor -- White color for sleeping players
                             else
                                 if not raycastResult then
-                                    dropesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                    if TeamCheck then
+                                        -- Check for Dot
+                                        local head = drop:FindFirstChild("Head")
+                                        local dot = head and head:FindFirstChild("Dot")
+        
+                                        if dot and dot:IsA("BillboardGui") and dot.Enabled then
+                                            dropesp.Color = TeamCheColor -- Yellow color for players with enabled Dot
+                                        else
+                                            dropesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                        end
+                                    else
+                                        dropesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                    end
                                 else
                                     dropesp.Color = WallColor -- Red color for obstructed players
                                 end
@@ -1971,7 +1984,7 @@ local PlayerLOC = VTab1:AddToggle('Player', {
                         else
                             dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y)
                             dropesp.Text = PlayerText
-                            
+        
                             -- Check if the player is sleeping and set the text color
                             if IsSleeping(drop) then
                                 dropesp.Color = SleeperColor -- White color for sleeping players
@@ -1979,7 +1992,7 @@ local PlayerLOC = VTab1:AddToggle('Player', {
                                 dropesp.Color = ArmorColor -- Green color for players
                             end
                         end
-                        
+        
                         dropesp.Visible = true
                     else
                         dropesp.Visible = false
@@ -2007,6 +2020,7 @@ local PlayerLOC = VTab1:AddToggle('Player', {
                 end
             end
         end)
+        
     end
 })
 
@@ -2051,7 +2065,6 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
     Callback = function(Value)
         local camera = workspace.CurrentCamera
         local runservice = game:GetService("RunService")
-
         
         function IsSleeping(Model)
             if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
@@ -2071,12 +2084,12 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
             armorNameLabel.Outline = true
             armorNameLabel.Font = 2
             armorNameLabel.Size = 15
-            
+        
             local renderstepped
             renderstepped = runservice.RenderStepped:Connect(function()
                 if drop and drop:FindFirstChild("HumanoidRootPart") then
                     local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
-            
+        
                     if drop_onscreen then
                         local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
                         if distance <= distanceview then
@@ -2099,7 +2112,7 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
                                     armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
                                     armorNameLabel.Text = "[None]"
                                 end
-                                
+        
                                 -- Check if the player is sleeping and set the text color
                                 if IsSleeping(drop) then
                                     armorNameLabel.Color = SleeperColor -- White color for sleeping players
@@ -2108,15 +2121,27 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
                                         -- Raycast to check for obstructions
                                         local raycastParams = RaycastParams.new()
                                         raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-                                        raycastParams.FilterDescendantsInstances = {drop}
+                                        raycastParams.FilterDescendantsInstances = { drop }
                                         local raycastResult = workspace:Raycast(
                                             camera.CFrame.Position,
                                             drop.HumanoidRootPart.Position - camera.CFrame.Position,
                                             raycastParams
                                         )
-                                        
+        
                                         if not raycastResult then
-                                            armorNameLabel.Color = ArmorColor -- Green color for unobstructed and awake players
+                                            if TeamCheck then
+                                                -- Check for Dot
+                                                local head = drop:FindFirstChild("Head")
+                                                local dot = head and head:FindFirstChild("Dot")
+        
+                                                if dot and dot:IsA("BillboardGui") and dot.Enabled then
+                                                    armorNameLabel.Color = TeamCheColor -- Yellow color for players with enabled Dot
+                                                else
+                                                    armorNameLabel.Color = ArmorColor -- Green color for unobstructed and awake players
+                                                end
+                                            else
+                                                armorNameLabel.Color = ArmorColor -- Green color for unobstructed and awake players
+                                            end
                                         else
                                             armorNameLabel.Color = WallColor -- Red color for obstructed players
                                         end
@@ -2124,12 +2149,12 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
                                         armorNameLabel.Color = ArmorColor -- Green color for players
                                     end
                                 end
-                                
+        
                                 armorNameLabel.Visible = true
                             else
                                 armorNameLabel.Position = Vector2.new(drop_pos.X, drop_pos.Y) - Vector2.new(0, -30)
                                 armorNameLabel.Text = "[None]"
-                                
+        
                                 -- Check if the player is sleeping and set the text color
                                 if IsSleeping(drop) then
                                     armorNameLabel.Color = SleeperColor -- White color for sleeping players
@@ -2138,15 +2163,27 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
                                         -- Raycast to check for obstructions
                                         local raycastParams = RaycastParams.new()
                                         raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-                                        raycastParams.FilterDescendantsInstances = {drop}
+                                        raycastParams.FilterDescendantsInstances = { drop }
                                         local raycastResult = workspace:Raycast(
                                             camera.CFrame.Position,
                                             drop.HumanoidRootPart.Position - camera.CFrame.Position,
                                             raycastParams
                                         )
-                                        
+        
                                         if not raycastResult then
-                                            armorNameLabel.Color = ArmorColor -- Green color for unobstructed and awake players
+                                            if TeamCheck then
+                                                -- Check for Dot
+                                                local head = drop:FindFirstChild("Head")
+                                                local dot = head and head:FindFirstChild("Dot")
+        
+                                                if dot and dot:IsA("BillboardGui") and dot.Enabled then
+                                                    armorNameLabel.Color = TeamCheColor -- Yellow color for players with enabled Dot
+                                                else
+                                                    armorNameLabel.Color = ArmorColor -- Green color for unobstructed and awake players
+                                                end
+                                            else
+                                                armorNameLabel.Color = ArmorColor -- Green color for unobstructed and awake players
+                                            end
                                         else
                                             armorNameLabel.Color = WallColor -- Red color for obstructed players
                                         end
@@ -2154,7 +2191,7 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
                                         armorNameLabel.Color = ArmorColor -- Green color for players
                                     end
                                 end
-                                
+        
                                 armorNameLabel.Visible = true
                             end
                         else
@@ -2181,6 +2218,7 @@ local ArmorLOC = VTab1:AddToggle('Armor', {
                 espArmor(drop)
             end
         end)
+        
     end
 })
 
@@ -2266,99 +2304,112 @@ local DistanceLOC = VTab1:AddToggle('Distance', {
     Callback = function(Value)
         local camera = workspace.CurrentCamera
         local runservice = game:GetService("RunService")
-        
-        
-        function IsSleeping(Model)
-            if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
-                for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
-                    if v.Animation.AnimationId == "rbxassetid://13280887764" then
-                        return true
-                    end
-                end
+
+
+function IsSleeping(Model)
+    if Model and Model:FindFirstChild("AnimationController") and Model.AnimationController:FindFirstChild("Animator") then
+        for i, v in pairs(Model.AnimationController.Animator:GetPlayingAnimationTracks()) do
+            if v.Animation.AnimationId == "rbxassetid://13280887764" then
+                return true
             end
-            return false
         end
-        
-        function espDistance(drop)
-            local dropesp = Drawing.new("Text")
-            dropesp.Visible = false
-            dropesp.Center = true
-            dropesp.Outline = true
-            dropesp.Font = 2
-            dropesp.Size = 15
-            
-            local renderstepped
-            renderstepped = runservice.RenderStepped:Connect(function()
-                if drop and workspace:FindFirstChild(drop.Name) and drop:FindFirstChild("HumanoidRootPart") then
-                    local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
-            
-                    if drop_onscreen then
-                        local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
-                        if distance <= distanceview then
-                            if wallcheck then
-                                -- Raycast to check for obstructions
-                                local raycastParams = RaycastParams.new()
-                                raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-                                raycastParams.FilterDescendantsInstances = {drop}
-                                local raycastResult = workspace:Raycast(
-                                    camera.CFrame.Position,
-                                    drop.HumanoidRootPart.Position - camera.CFrame.Position,
-                                    raycastParams
-                                )
-                                
-                                dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y - -15) -- Adjusted position with a 15-pixel offset above
-                                dropesp.Text = string.format("[ %.1f studs ]", distance)
-                                
-                                -- Check if the player is sleeping and set the text color
-                                if IsSleeping(drop) then
-                                    dropesp.Color = SleeperColor -- Green color for sleeping players
-                                else
-                                    if not raycastResult then
-                                        dropesp.Color = ArmorColor -- Green color for unobstructed and awake players
-                                    else
-                                        dropesp.Color = WallColor -- Red color for obstructed players
-                                    end
-                                end
-                                
-                                dropesp.Visible = true
-                            else
-                                dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y - -15) -- Adjusted position with a 15-pixel offset above
-                                dropesp.Text = string.format("[ %.1f studs ]", distance)
-                                
-                                -- Check if the player is sleeping and set the text color
-                                if IsSleeping(drop) then
-                                    dropesp.Color = SleeperColor -- Green color for sleeping players
-                                else
-                                    dropesp.Color = ArmorColor -- Default color for awake players
-                                end
-                                
-                                dropesp.Visible = true
-                            end
+    end
+    return false
+end
+
+function espDistance(drop)
+    local dropesp = Drawing.new("Text")
+    dropesp.Visible = false
+    dropesp.Center = true
+    dropesp.Outline = true
+    dropesp.Font = 2
+    dropesp.Size = 15
+
+    local renderstepped
+    renderstepped = runservice.RenderStepped:Connect(function()
+        if drop and workspace:FindFirstChild(drop.Name) and drop:FindFirstChild("HumanoidRootPart") then
+            local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
+
+            if drop_onscreen then
+                local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
+                if distance <= distanceview then
+                    if wallcheck then
+                        -- Raycast to check for obstructions
+                        local raycastParams = RaycastParams.new()
+                        raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+                        raycastParams.FilterDescendantsInstances = { drop }
+                        local raycastResult = workspace:Raycast(
+                            camera.CFrame.Position,
+                            drop.HumanoidRootPart.Position - camera.CFrame.Position,
+                            raycastParams
+                        )
+
+                        dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y - -15) -- Adjusted position with a 15-pixel offset above
+                        dropesp.Text = string.format("[ %.1f studs ]", distance)
+
+                        -- Check if the player is sleeping and set the text color
+                        if IsSleeping(drop) then
+                            dropesp.Color = SleeperColor -- Green color for sleeping players
                         else
-                            dropesp.Visible = false
+                            if not raycastResult then
+                                if TeamCheck then
+                                    -- Check for Dot
+                                    local head = drop:FindFirstChild("Head")
+                                    local dot = head and head:FindFirstChild("Dot")
+
+                                    if dot and dot:IsA("BillboardGui") and dot.Enabled then
+                                        dropesp.Color = TeamCheColor -- Yellow color for players with enabled Dot
+                                    else
+                                        dropesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                    end
+                                else
+                                    dropesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                end
+                            else
+                                dropesp.Color = WallColor -- Red color for obstructed players
+                            end
                         end
+
+                        dropesp.Visible = true
                     else
-                        dropesp.Visible = false
+                        dropesp.Position = Vector2.new(drop_pos.X, drop_pos.Y - -15) -- Adjusted position with a 15-pixel offset above
+                        dropesp.Text = string.format("[ %.1f studs ]", distance)
+
+                        -- Check if the player is sleeping and set the text color
+                        if IsSleeping(drop) then
+                            dropesp.Color = SleeperColor -- Green color for sleeping players
+                        else
+                            dropesp.Color = ArmorColor -- Default color for awake players
+                        end
+
+                        dropesp.Visible = true
                     end
                 else
                     dropesp.Visible = false
-                    dropesp:Remove()
-                    renderstepped:Disconnect()
                 end
-            end)
-        end
-        
-        for i, drop in ipairs(workspace:GetChildren()) do
-            if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
-                espDistance(drop)
+            else
+                dropesp.Visible = false
             end
+        else
+            dropesp.Visible = false
+            dropesp:Remove()
+            renderstepped:Disconnect()
         end
-        
-        workspace.ChildAdded:Connect(function(drop)
-            if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
-                espDistance(drop)
-            end
-        end)
+    end)
+end
+
+for i, drop in ipairs(workspace:GetChildren()) do
+    if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
+        espDistance(drop)
+    end
+end
+
+workspace.ChildAdded:Connect(function(drop)
+    if drop.Name == "Model" and drop:FindFirstChild("HumanoidRootPart") then
+        espDistance(drop)
+    end
+end)
+
     end
 })
 
@@ -2372,7 +2423,6 @@ local LineLOC = VTab1:AddToggle('Snapline', {
     Callback = function(Value)
         local camera = workspace.CurrentCamera
         local runservice = game:GetService("RunService")
-        
 
         
         function IsSleeping(Model)
@@ -2392,12 +2442,12 @@ local LineLOC = VTab1:AddToggle('Snapline', {
             lineesp.From = Vector2.new(0, 0)
             lineesp.To = Vector2.new(0, 0)
             lineesp.Thickness = 2
-            
+        
             local renderstepped
             renderstepped = runservice.RenderStepped:Connect(function()
                 if drop and drop:IsDescendantOf(workspace) and drop:FindFirstChild("HumanoidRootPart") then
                     local drop_pos, drop_onscreen = camera:WorldToViewportPoint(drop.HumanoidRootPart.Position)
-            
+        
                     if drop_onscreen then
                         local distance = (camera.CFrame.Position - drop.HumanoidRootPart.Position).Magnitude
                         if distance <= distanceview then
@@ -2405,13 +2455,13 @@ local LineLOC = VTab1:AddToggle('Snapline', {
                                 -- Raycast to check for obstructions
                                 local raycastParams = RaycastParams.new()
                                 raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
-                                raycastParams.FilterDescendantsInstances = {drop}
+                                raycastParams.FilterDescendantsInstances = { drop }
                                 local raycastResult = workspace:Raycast(
                                     camera.CFrame.Position,
                                     drop.HumanoidRootPart.Position - camera.CFrame.Position,
                                     raycastParams
                                 )
-                                
+        
                                 local topCenter = Vector2.new(camera.ViewportSize.X / 2, 0)
                                 lineesp.From = topCenter
                                 lineesp.To = Vector2.new(drop_pos.X, drop_pos.Y - 15)
@@ -2422,7 +2472,19 @@ local LineLOC = VTab1:AddToggle('Snapline', {
                                     lineesp.Color = SleeperColor -- White color for sleeping players
                                 else
                                     if not raycastResult then
-                                        lineesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                        if TeamCheck then
+                                            -- Check for Dot
+                                            local head = drop:FindFirstChild("Head")
+                                            local dot = head and head:FindFirstChild("Dot")
+        
+                                            if dot and dot:IsA("BillboardGui") and dot.Enabled then
+                                                lineesp.Color = TeamCheColor -- Yellow color for players with enabled Dot
+                                            else
+                                                lineesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                            end
+                                        else
+                                            lineesp.Color = ArmorColor -- Green color for unobstructed and awake players
+                                        end
                                     else
                                         lineesp.Color = WallColor -- Red color for obstructed players
                                     end
@@ -2437,7 +2499,7 @@ local LineLOC = VTab1:AddToggle('Snapline', {
                                 if IsSleeping(drop) then
                                     lineesp.Color = SleeperColor -- White color for sleeping players
                                 else
-                                    lineesp.Color = ArmorColor -- Green color for players
+                                    lineesp.Color = ArmorColor -- Default color for awake players
                                 end
                             end
                         else
@@ -2465,6 +2527,7 @@ local LineLOC = VTab1:AddToggle('Snapline', {
                 esp(drop)
             end
         end)
+        
     end
 })
 
@@ -2489,6 +2552,26 @@ WallCheckLOC:AddColorPicker('ColorPicker', {
 
     Callback = function(WALLCOLTOG)
         WallColor = Color3.new(WALLCOLTOG.r, WALLCOLTOG.g, WALLCOLTOG.b)
+    end
+})
+
+local TeamCheckLOC = VTab2:AddToggle('BRUHcheck', {
+    Text = 'Teamcheck',
+    Default = false, 
+    Tooltip = 'Enable Teamcheck', 
+
+    Callback = function(LOLBRUH)
+        TeamCheck = LOLBRUH
+    end
+})
+
+TeamCheckLOC:AddColorPicker('ColorPicker', {
+    Default = Color3.new(1, 1, 0), 
+    Title = 'Colorpicker', 
+    Transparency = 0, 
+
+    Callback = function(TeamCOLTOG)
+        TeamCheColor = Color3.new(TeamCOLTOG.r, TeamCOLTOG.g, TeamCOLTOG.b)
     end
 })
 
@@ -2904,7 +2987,8 @@ end
 local itemsToApplyTransformation = {
     "Elm1_Leaves",
     "Brich1_Leaves",
-    "Fir3_Leaves"
+    "Fir3_Leaves",
+    "Palm1_Leaves"
 }
 
 for _, itemName in ipairs(itemsToApplyTransformation) do
