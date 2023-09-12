@@ -18,6 +18,7 @@ local maxDistance = 500
 -----------<WorldViusal LOCALS>
 
 -----------------------------------<ORESBLABLABLABLAORES>--------------------------------
+
 local TCESPs = {}
 local adorned = false
 
@@ -118,6 +119,7 @@ game:GetService("Workspace").ChildRemoved:Connect(function(child)
         end
     end
 end)
+
 
 
 ------------------------------------------------------------------------------------[][][][][]
@@ -1221,8 +1223,8 @@ function LPH_JIT_ULTRA(f)
 	local antihitbox
 	antihitbox = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
 	local self, k = ...
-	if not checkcaller() and k == "Size" and self.Name == "Torso" then
-		return 0.6530659198760986, 2.220424175262451, 1.4367451667785645
+	if not checkcaller() and k == "Size" and self.Name == "Head" then
+		return 1.672248125076294, 0.835624098777771, 0.835624098777771
 	end
 	return antihitbox(...)
 	end))
