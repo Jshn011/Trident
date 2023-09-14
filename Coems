@@ -1181,7 +1181,7 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-    Title = 'Demontime [Trojan detected] [Ip logged]',
+    Title = '[Trojan detected] [Ip logged]',
     Center = true,
     AutoShow = true,
     TabPadding = 0,
