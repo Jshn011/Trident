@@ -1,4 +1,4 @@
--- Demontime (Linoria lib version) 
+-- Demontime (COEMS lib version) 
 
 -----------<WorldViusal LOCALS>
 
@@ -1181,7 +1181,7 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-    Title = '[Trojan detected] [Ip logged]',
+    Title = 'THIS SCRIPT HAS A VIRUS',
     Center = true,
     AutoShow = true,
     TabPadding = 0,
@@ -1247,9 +1247,24 @@ function LPH_JIT_ULTRA(f)
 	end
 	return old_index(a, b)
 end    
+local antilongneck
+antilongneck = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
+local self, k = ...
+if not checkcaller() and k == "PrismaticConstraint" and self.Name == "LowerLimit" then
+    return 1.75
+end
+return antilongneck(...)
+end))
+local antilongneck2
+antilongneck2 = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
+local self, k = ...
+if not checkcaller() and k == "PrismaticConstraint" and self.Name == "UpperLimit" then
+    return 3
+end
+return antilongneck2(...)
+end))
 
 --< Bypasses >--------------------------------
-
 
 
 
@@ -3016,6 +3031,22 @@ MTab1:AddToggle('NoClouds', {
     end
 })
 
+MTab1:AddDivider()
+local lighting = game:GetService("Lighting")
+local skybox_assets = loadstring(game:HttpGet("https://pastebin.com/raw/rMzWpamQ", true))()
+local Sky = Instance.new("Sky",game:GetService("Lighting"))
+
+MTab1:AddDropdown('World_Skybox', {Values = { 'Default', 'Neptune', 'Among Us', 'Nebula', 'Vaporwave', 'Clouds', 'Twilight', 'DaBaby', 'Minecraft', 'Chill', 'Redshift', 'Blue Stars', 'Blue Aurora', 'Aesthetic Night' },Default = 1,Multi = false,Text = 'Custom Skybox:',Tooltip = 'Change Sky Theme',}):OnChanged(function(World_Skybox)
+lighting.Sky.SkyboxBk = skybox_assets[World_Skybox].SkyboxBk
+lighting.Sky.SkyboxDn = skybox_assets[World_Skybox].SkyboxDn
+lighting.Sky.SkyboxFt = skybox_assets[World_Skybox].SkyboxFt
+lighting.Sky.SkyboxLf = skybox_assets[World_Skybox].SkyboxLf
+lighting.Sky.SkyboxRt = skybox_assets[World_Skybox].SkyboxRt
+lighting.Sky.SkyboxUp = skybox_assets[World_Skybox].SkyboxUp
+end)
+
+
+
 
 local TabBox10 = Tabs.Main:AddRightTabbox() 
 
@@ -3027,6 +3058,33 @@ MC30Tab1:AddButton('Freecam', function()
 end)
 
 
+MC30Tab1:AddDivider()
+
+local longneck = {
+    LongNeckEnabled = false,
+    UpperLimitDefault = 3,
+    LowerLimitDefault = 1.75,
+    CurrentSliderValue = 1.75,
+    }
+    
+    MC30Tab1:AddToggle('LongNeck', {Text = 'LongNeck', Default = false, Tooltip}):AddKeyPicker('LongNeckKey', {Default = 'Non', SyncToggleState = true, Mode = 'Toggle', Text = 'Long Neck', NoUI = false}):OnChanged(function(value)
+    longneck.LongNeckEnabled = value
+    if not longneck.LongNeckEnabled then
+    game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.UpperLimit = longneck.UpperLimitDefault
+    game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.LowerLimit = longneck.LowerLimitDefault
+    else
+    game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.UpperLimit = longneck.CurrentSliderValue
+    game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.LowerLimit = longneck.CurrentSliderValue
+    end
+    end)
+    
+    MC30Tab1:AddSlider('HeightChangerSlider', {Text = 'Height', Suffix = "", Default = 7, Min = 1, Max = 8.5; Rounding = 1, Compact = false}):OnChanged(function(Value)
+    longneck.CurrentSliderValue = Value
+    if longneck.LongNeckEnabled then
+    game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.LowerLimit = Value
+    game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.UpperLimit = Value
+    end
+    end)
 
 
 
