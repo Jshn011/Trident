@@ -1,4 +1,77 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/M6prETZJ", true))()
+wait(5)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = true
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Checking Ip...."
 
-wait(1)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Jshn011/Trident/main/UI%20BLAHBLAH", true))()
+wait(2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = false
+
+wait(4)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = true
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Ip found!"
+
+wait(2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = false
+
+wait(3)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = true
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Logging Ip...."
+
+wait(2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = false
+
+wait(5)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = true
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Ip logged!"
+
+wait(2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = false
+
+wait(2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.TextColor3 = Color3.new(1, 0, 0)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.BackgroundColor3 = Color3.new(0, 0, 0)
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = true
+
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "D"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "De"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Dea"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Deat"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death"
+
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death S"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Sc"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Scr"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Scre"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Scree"
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Screen"
+
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Screen :"
+
+wait(0.2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Death Screen :)"
+
+wait(2)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = false
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.TextColor3 = Color3.fromRGB(255,255,255)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.BackgroundColor3 = Color3.fromRGB(35,35, 35)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Loading Chunks..."
+
+
+wait(0.1)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.SpawnScreen.Visible = true
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.Visible = false
+
+wait(600)
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.SpawnScreen.Visible = false
+game:GetService("Players").LocalPlayer.PlayerGui.GameUI.FPS.Visible = true
