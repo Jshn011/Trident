@@ -1,6 +1,50 @@
-loadstring(game:HttpGet("https://pastebin.com/raw/M6prETZJ", true))()
-
 -- Demontime (COEMS lib version) 
+
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.TextColor3 = Color3.new(1, 0, 0)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.BackgroundColor3 = Color3.new(0, 0, 0)
+  
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = true
+  
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "I"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S D"
+  
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DE"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEM"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMO"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMON"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMONT"
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMONTI"
+  
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMONTIM"
+  
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMONTIME"
+
+  wait(0.2)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "IT'S DEMONTIME 😈"
+  
+  wait(3)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.Visible = false
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.TextColor3 = Color3.fromRGB(255,255,255)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.BackgroundColor3 = Color3.fromRGB(35,35, 35)
+  game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Loading Chunks..."
+
+
 
 -----------<WorldViusal LOCALS>
 
