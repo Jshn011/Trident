@@ -44,1182 +44,11 @@
   game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.BackgroundColor3 = Color3.fromRGB(35,35, 35)
   game:GetService("Players").LocalPlayer.PlayerGui.GameUI.LoadingScreen.TextLabel.Text = "Loading Chunks..."
 
-
-
------------<WorldViusal LOCALS>
-
-local IronColor = Color3.new(1, 1, 1)
-local StoneColor = Color3.new(1, 1, 1)
-local NitrateColor = Color3.new(1, 1, 1)
-local PartBoxColor = Color3.new(1, 1, 1)
-local VendingMachineColor = Color3.new(1, 1, 1)
-local MetalCrateColor = Color3.new(1, 1, 1)
-local ClaimTotemColor = Color3.new(1, 1, 1)
-local RespawnTotemColor = Color3.new(1, 1, 1)
-local SmallBoxColor = Color3.new(1, 1, 1)
-local MediumBoxColor = Color3.new(1, 1, 1)
-local CabinetColor = Color3.new(1, 1, 1)
-local maxDistance = 500
-
------------<WorldViusal LOCALS>
-
------------------------------------<ORESBLABLABLABLAORES>--------------------------------
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("MeshPart") and part.BrickColor == BrickColor.new("Burlap") and part.Material == Enum.Material.Slate then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 2 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Iron Ore]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = IronColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function IronToggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Burlap") and child.Material == Enum.Material.Slate then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Burlap") and child.Material == Enum.Material.Slate then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("MeshPart") and part.BrickColor == BrickColor.new("Flint") and part.Material == Enum.Material.Limestone then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 1 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Stone Ore]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = StoneColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function StonetoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Flint") and child.Material == Enum.Material.Limestone then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Flint") and child.Material == Enum.Material.Limestone then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("MeshPart") and part.BrickColor == BrickColor.new("Institutional white") and part.Material == Enum.Material.Slate then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() > 0 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Nitrate Ore]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = NitrateColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function NitratetoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Institutional white") and child.Material == Enum.Material.Slate then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Institutional white") and child.Material == Enum.Material.Slate then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("UnionOperation") and part.BrickColor == BrickColor.new("Cashmere") and part.Material == Enum.Material.Plastic then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 2 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Part Box]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = PartBoxColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function PartBoxtoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Cashmere") and child.Material == Enum.Material.Plastic then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Cashmere") and child.Material == Enum.Material.Plastic then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("UnionOperation") and part.BrickColor == BrickColor.new("Medium brown") and part.Material == Enum.Material.Plastic then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 12 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Vending Machine]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = VendingMachineColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function VendingMachinetoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Medium brown") and child.Material == Enum.Material.Plastic then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("UnionOperation") and child.BrickColor == BrickColor.new("Medium brown") and child.Material == Enum.Material.Plastic then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("MeshPart") and part.BrickColor == BrickColor.new("Silver flip/flop") and part.Material == Enum.Material.Metal then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 2 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Military Crate]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = MetalCrateColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function MetalCratetoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Silver flip/flop") and child.Material == Enum.Material.Metal then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("MeshPart") and child.BrickColor == BrickColor.new("Silver flip/flop") and child.Material == Enum.Material.Metal then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("Part") and part.BrickColor == BrickColor.new("Dark blue") and part.Material == Enum.Material.Neon then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 5 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Claim Totem]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = ClaimTotemColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function ClaimTotemtoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Dark blue") and child.Material == Enum.Material.Neon then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Dark blue") and child.Material == Enum.Material.Neon then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("Part") and part.BrickColor == BrickColor.new("Gun metallic") and part.Material == Enum.Material.Wood then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 10 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Cabinet]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = CabinetColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function CabinettoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Gun metallic") and child.Material == Enum.Material.Wood then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Gun metallic") and child.Material == Enum.Material.Wood then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("Part") and part.BrickColor == BrickColor.new("Dark stone grey") and part.Material == Enum.Material.Slate then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 4 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Respawn Totem]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = RespawnTotemColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function RespawnTotemtoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Dark stone grey") and child.Material == Enum.Material.Slate then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Dark stone grey") and child.Material == Enum.Material.Slate then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("Part") and part.BrickColor == BrickColor.new("Linen") and part.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(3.25, 2, 2.25) then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 3 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Small Box]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = SmallBoxColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function SmallBoxtoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(3.25, 2, 2.25) then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(3.25, 2, 2.25) then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-local TCESPs = {}
-local adorned = false
-
-local function calculateDistance(part)
-    local camera = game.Workspace.CurrentCamera
-    if camera and camera:IsA("Camera") then
-        local cameraPosition = camera.CFrame.Position
-        local partPosition = part.Position
-        return (cameraPosition - partPosition).Magnitude
-    end
-    return math.huge -- Return a very large value if the camera is not available
-end
-
-local function addAdornments()
-    local parts = workspace:GetDescendants()
-    local partsToRemove = {} -- Store parts to remove ESPs from
-    for _, part in ipairs(parts) do
-        if part:IsA("Part") and part.BrickColor == BrickColor.new("Linen") and part.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(6, 2.5, 2.75) then
-            local parent = part.Parent
-            if parent and parent:IsA("Model") and #parent:GetChildren() == 3 then
-                local distance = calculateDistance(part)
-                if distance <= maxDistance then
-                    local isAdorned = false
-                    for _, billboardGui in ipairs(TCESPs) do
-                        if billboardGui.Adornee == part then
-                            isAdorned = true
-                            break
-                        end
-                    end
-                    if not isAdorned then
-                        local billboardGui = Instance.new("BillboardGui")
-                        billboardGui.Size = UDim2.new(0, 100, 0, 50) -- Adjust the size as needed
-                        billboardGui.AlwaysOnTop = true
-                        billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- Adjust the offset as needed
-                        billboardGui.Adornee = part
-                        billboardGui.Parent = part
-
-                        local textLabel = Instance.new("TextLabel")
-                        textLabel.Size = UDim2.new(1, 0, 1, 0)
-                        textLabel.BackgroundTransparency = 1
-                        textLabel.Text = "[Medium Box]" -- Replace with the desired text
-                        textLabel.Font = Enum.Font.SourceSans
-                        textLabel.TextColor3 = MediumBoxColor
-                        textLabel.TextSize = 15 -- Set the text size to 15
-                        textLabel.Parent = billboardGui
-
-                        table.insert(TCESPs, billboardGui)
-                    end
-                else
-                    table.insert(partsToRemove, part)
-                end
-            end
-        end
-    end
-    for _, partToRemove in ipairs(partsToRemove) do
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == partToRemove then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end
-
-local function MediumBoxtoggleAdornments()
-    adorned = not adorned
-    if adorned then
-        addAdornments()
-    else
-        for _, billboardGui in ipairs(TCESPs) do
-            billboardGui:Destroy()
-        end
-        TCESPs = {}
-    end
-end
-
-game:GetService("RunService").Heartbeat:Connect(function()
-    if adorned then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildAdded:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(6, 2.5, 2.75) then
-        addAdornments()
-    end
-end)
-
-game:GetService("Workspace").ChildRemoved:Connect(function(child)
-    if adorned and child:IsA("Part") and child.BrickColor == BrickColor.new("Linen") and child.Material == Enum.Material.WoodPlanks and part.Size == Vector3.new(6, 2.5, 2.75) then
-        for i, billboardGui in ipairs(TCESPs) do
-            if billboardGui.Adornee == child then
-                billboardGui:Destroy()
-                table.remove(TCESPs, i)
-                break
-            end
-        end
-    end
-end)
-
-
-------------------------------------------------------------------------------------[][][][][]
-
-
-
-
-
-
-
-
-
-
-
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+loadstring(game:HttpGet("https://pastebin.com/raw/tYiAPBWY",true))()
+--------------------------------------------------------------------
+--------------------------------------------------------------------
 local repo = 'https://raw.githubusercontent.com/violin-suzutsuki/LinoriaLib/main/'
 
 local Library = loadstring(game:HttpGet(repo .. 'Library.lua'))()
@@ -1227,14 +56,12 @@ local ThemeManager = loadstring(game:HttpGet(repo .. 'addons/ThemeManager.lua'))
 local SaveManager = loadstring(game:HttpGet(repo .. 'addons/SaveManager.lua'))()
 
 local Window = Library:CreateWindow({
-    Title = 'THIS SCRIPT HAS A VIRUS',
+    Title = '😈D😈E😈M😈O😈N😈T😈I😈M😈E😈 ',
     Center = true,
     AutoShow = true,
     TabPadding = 0,
     MenuFadeTime = 0
 })
-
-
 
 
 
@@ -1270,10 +97,11 @@ function LPH_JIT_ULTRA(f)
 	antihitbox = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
 	local self, k = ...
 	if not checkcaller() and k == "Size" and self.Name == "Head" then
-		return 1.672248125076294, 0.835624098777771, 0.835624098777771
+		return 0.1, 0.1, 0.1
 	end
 	return antihitbox(...)
 	end))
+
 	local antixray
 	antixray = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
 	local self, k = ...
@@ -1282,17 +110,19 @@ function LPH_JIT_ULTRA(f)
 	end
 	return antixray(...)
 	end))
-	local mt = getrawmetatable(game)
-	make_writeable(mt)
-	local old_index = mt.__index
-	mt.__index = function(a,b)
-	if tostring(a) == "Workspace" then
+
+local mt = getrawmetatable(game)
+make_writeable(mt)
+local old_index = mt.__index
+mt.__index = function(a,b)
+    if tostring(a) == "Workspace" then
 		if tostring(b) == "Gravity" then
-			return 75;
+			return 80;
 		end
 	end
 	return old_index(a, b)
 end    
+
 local antilongneck
 antilongneck = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
 local self, k = ...
@@ -1301,13 +131,23 @@ if not checkcaller() and k == "PrismaticConstraint" and self.Name == "LowerLimit
 end
 return antilongneck(...)
 end))
+
 local antilongneck2
 antilongneck2 = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
 local self, k = ...
 if not checkcaller() and k == "PrismaticConstraint" and self.Name == "UpperLimit" then
-    return 3
+    return 2.75
 end
 return antilongneck2(...)
+end))
+
+local antigravitytest
+antigravitytest = hookmetamethod(game, "__index", LPH_NO_VIRTUALIZE(function(...)
+local self, k = ...
+if not checkcaller() and k == "Gravity" and self.Name == "Workspace" then
+    return 75
+end
+return antigravitytest(...)
 end))
 
 --< Bypasses >--------------------------------
@@ -1778,6 +618,7 @@ local function setArmProperties(property, value)
 
         local replicatedStorageLOL = game:GetService("ReplicatedStorage")
         local handModelsLOL = replicatedStorageLOL:WaitForChild("HandModels")
+        local EverythingLOL = replicatedStorageLOL:WaitForChild("Attachments")
         local materialLOL = Enum.Material.ForceField
         local colorLOL = Color3.new(1, 1, 1)
         local transparencyGUNLOL = 0
@@ -1813,6 +654,35 @@ local function setArmProperties(property, value)
     })
     
     
+    local CUSTOMALL = PMPTab1:AddToggle('Enable', {
+        Text = 'Custom Attachments',
+        Default = false, 
+        Tooltip = '', 
+        
+        Callback = function(LOL)
+    
+          for _, part in pairs(EverythingLOL:GetDescendants()) do
+            if part:IsA("BasePart") then
+            part.Material = materialLOL
+            part.Color = colorLOL
+            part.Transparency = transparencyGUNLOL
+        end
+    end
+    
+        end
+    })
+    
+    CUSTOMALL:AddColorPicker('ColorPicker', {
+        Default = Color3.new(1, 1, 1), 
+        Title = 'Color', 
+        Transparency = 0, 
+    
+        Callback = function(BRUHBRUH)
+            colorLOL = Color3.new(BRUHBRUH.r, BRUHBRUH.g, BRUHBRUH.b)
+        end
+    })
+
+
     PMPTab1:AddDropdown('MaterialDropdown', {
         Values = { "ForceField", "Neon", "Plastic", "Metal", "Wood", "Slate", "Concrete", "Foil", "DiamondPlate", "CorrodedMetal", "Grass", "Ice", "Marble", "Granite", "Brick", "Pebble", "Sand", "Fabric", "SmoothPlastic", "WoodPlanks", "Cobblestone", "Glass", "Asphalt", "LeafyGrass", "Salt", "Limestone", "Basalt" },
         Default = 1, 
@@ -3132,8 +2002,8 @@ local TabBox10 = Tabs.Main:AddRightTabbox()
 
 local MC30Tab1 = TabBox10:AddTab('Local Misc')
 
-MC30Tab1:AddButton('Freecam', function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/RobloxSkriptr/RBLXSkriptr/main/Free%20Camera.lua",true))()
+MC30Tab1:AddButton('Freecam (P)', function()
+    loadstring(game:HttpGet("https://pastebin.com/raw/d1syVk7k",true))()
 end)
 
 
@@ -3164,6 +2034,29 @@ local longneck = {
     game:GetService("Workspace").Ignore.LocalCharacter.Bottom.PrismaticConstraint.UpperLimit = Value
     end
     end)
+
+
+--* Gravity *--
+
+local GravityEnabled = false
+local defaultGravity = 75
+local CurrentSliderValue2 = 75
+
+MC30Tab1:AddToggle('Gravity', {Text = 'Gravity', Default = false, Tooltip}):AddKeyPicker('GravityKey', {Default = 'Non', SyncToggleState = true, Mode = 'Toggle', Text = 'Gravity', NoUI = true}):OnChanged(function(value)
+GravityEnabled = value
+if not GravityEnabled then
+sethiddenproperty(game:GetService("Workspace"), "Gravity", defaultGravity)
+else
+sethiddenproperty(game:GetService("Workspace"), "Gravity", CurrentSliderValue2)
+end
+end)
+
+MC30Tab1:AddSlider('GravityChangerSlider', {Text = 'Power', Suffix = "", Default = defaultGravity, Min = 50, Max = 100, Rounding = 0, Compact = false}):OnChanged(function(Value)
+CurrentSliderValue2 = Value
+if GravityEnabled then
+sethiddenproperty(game:GetService("Workspace"), "Gravity", Value)
+end
+end)
 
 
 
