@@ -407,7 +407,7 @@ Tab1:AddToggle('Freezebruh', {Text = 'Freeze Players', Default = false, Tooltip}
         for _, existingChild in pairs(workspace:GetChildren()) do
             AdjustHeadSize(existingChild)
         end
-    end
+    end)
 
 
 
