@@ -386,6 +386,7 @@ Tab1:AddSlider('HitboxSlider', {
     end
 })
 
+local freezeblud = false
 
 Tab1:AddToggle('Freezebruh', {Text = 'Freeze Players', Default = false, Tooltip}):AddKeyPicker('FreezebruhKey', {Default = 'Non', SyncToggleState = true, Mode = 'Toggle', Text = 'Freeze bruh', NoUI = false}):OnChanged(function(value)
     freezeblud = value
