@@ -387,6 +387,30 @@ Tab1:AddSlider('HitboxSlider', {
 })
 
 
+Tab1:AddToggle('Freezebruh', {Text = 'Freeze Players', Default = false, Tooltip}):AddKeyPicker('FreezebruhKey', {Default = 'Non', SyncToggleState = true, Mode = 'Toggle', Text = 'Freeze bruh', NoUI = false}):OnChanged(function(value)
+    freezeblud = value
+        local function AdjustHeadSize(i)
+            if i:FindFirstChild("HumanoidRootPart") then
+                if freezeblud then
+                    i.Head.Anchored = true
+                else
+                    i.Head.Anchored = false
+                end
+            end
+        end
+        
+        workspace.ChildAdded:Connect(function(child)
+            AdjustHeadSize(child)
+        end)
+        
+        for _, existingChild in pairs(workspace:GetChildren()) do
+            AdjustHeadSize(existingChild)
+        end
+    end
+
+
+
+
 local Tab2 = TabBox:AddTab('Head Expander')
 
 local ENABLEBRUH = Tab2:AddToggle('Enable', {
