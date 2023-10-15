@@ -109,7 +109,7 @@ for v, i in pairs(game:GetService("Workspace"):GetChildren()) do
                 BigHeadsPart.Name = "Head"
                 BigHeadsPart.Anchored = false
                 BigHeadsPart.CanCollide = false
-                BigHeadsPart.Size = Vector3.new(10, 10, 10)
+                BigHeadsPart.Size = Vector3.new(9, 9, 9)
                 BigHeadsPart.Transparency = 0.5
 
                 -- Clone and parent the BigHeadsPart to the specified parts
